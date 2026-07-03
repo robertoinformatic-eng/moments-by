@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Empresa · Supabase</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <!-- Carrega o SDK do Supabase (uma única vez) -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
     </script>
     <style>
-        /* ===== MESMO ESTILO ANTERIOR (mantido) ===== */
+        /* ===== ESTILOS (mesmo do anterior) ===== */
         * {
             margin: 0;
             padding: 0;
@@ -942,28 +941,28 @@
     <!-- ===== TOAST ===== -->
     <div class="toast-container" id="toastContainer"></div>
 
-    <!-- ===== ADMIN TOGGLE (evento definido no JS) ===== -->
+    <!-- ===== ADMIN TOGGLE ===== -->
     <button id="adminToggle">
         <i class="fas fa-cog"></i>
         <i class="fas fa-times"></i>
     </button>
 
-    <!-- ===== ADMIN LOGIN ===== -->
+    <!-- ===== ADMIN LOGIN (alterado para admin/123) ===== -->
     <div id="adminLogin">
         <div class="login-box">
             <h2><i class="fas fa-lock" style="color:var(--accent);margin-right:8px;"></i>Admin</h2>
-            <p>Digite seu e-mail e senha do Supabase</p>
+            <p>Digite <strong>admin</strong> e senha <strong>123</strong></p>
             <form onsubmit="handleLogin(event)">
                 <div class="admin-form-group">
-                    <label for="loginEmail">E-mail</label>
-                    <input type="email" id="loginEmail" placeholder="admin@empresa.com" required />
+                    <label for="loginEmail">Usuário</label>
+                    <input type="text" id="loginEmail" placeholder="admin" value="admin" required />
                 </div>
                 <div class="admin-form-group">
                     <label for="loginPassword">Senha</label>
-                    <input type="password" id="loginPassword" placeholder="••••••••" required />
+                    <input type="password" id="loginPassword" placeholder="123" value="123" required />
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">Entrar</button>
-                <div class="login-error" id="loginError">Credenciais inválidas. Tente novamente.</div>
+                <div class="login-error" id="loginError">Usuário ou senha inválidos.</div>
             </form>
         </div>
     </div>
@@ -1094,12 +1093,12 @@
                 <div id="eventsAdminList" class="admin-item-list"></div>
             </div>
 
-            <!-- SENHA -->
+            <!-- SENHA (alterar senha fixa) -->
             <div class="admin-tab-pane" id="tabSenha">
                 <form id="formSenha" onsubmit="changePassword(event)">
                     <div class="admin-form-group">
                         <label>Nova Senha <span class="required">*</span></label>
-                        <input type="password" id="newPassword" placeholder="Mínimo 6 caracteres" required minlength="6" />
+                        <input type="password" id="newPassword" placeholder="Mínimo 4 caracteres" required minlength="4" />
                     </div>
                     <div class="admin-form-group">
                         <label>Confirmar <span class="required">*</span></label>
@@ -1208,7 +1207,7 @@
     </div>
 
     <!-- ============================================================
-    JAVASCRIPT – CORRIGIDO
+    JAVASCRIPT – APENAS A AUTENTICAÇÃO FOI ALTERADA
     ============================================================ -->
     <script>
         (function() {
@@ -1228,7 +1227,7 @@
                 if (typeof supabase !== 'undefined' && supabase.createClient) {
                     supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
                 } else {
-                    console.warn('SDK do Supabase não carregado. Verifique a conexão com a internet.');
+                    console.warn('SDK do Supabase não carregado.');
                 }
             } catch (e) {
                 console.error('Erro ao inicializar Supabase:', e);
@@ -1242,6 +1241,12 @@
             let currentSlide = 0;
             let autoPlayInterval = null;
             let isAdminOpen = false;
+
+            // Senha padrão (armazenada no localStorage para persistência)
+            const DEFAULT_PASSWORD = '123';
+            if (!localStorage.getItem('adminPassword')) {
+                localStorage.setItem('adminPassword', DEFAULT_PASSWORD);
+            }
 
             // ============================================================
             // 4. HELPERS
@@ -1271,50 +1276,37 @@
             }
 
             // ============================================================
-            // 5. AUTENTICAÇÃO
+            // 5. AUTENTICAÇÃO – ALTERADA PARA ADMIN / 123
             // ============================================================
-            async function handleLogin(e) {
+            function handleLogin(e) {
                 e.preventDefault();
-                if (!supabaseClient) {
-                    toast('Supabase não disponível. Verifique sua conexão.', 'error');
-                    return;
-                }
-                const email = document.getElementById('loginEmail').value.trim();
+                const username = document.getElementById('loginEmail').value.trim();
                 const password = document.getElementById('loginPassword').value.trim();
 
-                const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
-                if (error) {
-                    document.getElementById('loginError').classList.add('show');
-                    toast('Erro ao logar: ' + error.message, 'error');
-                    return;
-                }
-                currentUser = data.user;
-                document.getElementById('loginError').classList.remove('show');
-                document.getElementById('adminLogin').classList.remove('open');
-                sessionStorage.setItem('adminAuth', 'true');
-                showAdminPanel();
-                toast('Bem-vindo, ' + (currentUser.email || 'Admin') + '!');
-            }
+                // Credenciais fixas: admin / senha salva no localStorage
+                const savedPassword = localStorage.getItem('adminPassword') || DEFAULT_PASSWORD;
 
-            async function logout() {
-                if (supabaseClient) await supabaseClient.auth.signOut();
-                sessionStorage.removeItem('adminAuth');
-                currentUser = null;
-                closeAdmin();
-                toast('Desconectado.');
-            }
-
-            async function checkAuth() {
-                if (!supabaseClient) return;
-                const { data } = await supabaseClient.auth.getSession();
-                if (data.session) {
-                    currentUser = data.session.user;
+                if (username === 'admin' && password === savedPassword) {
+                    currentUser = { email: 'admin' };
                     sessionStorage.setItem('adminAuth', 'true');
+                    document.getElementById('loginError').classList.remove('show');
+                    document.getElementById('adminLogin').classList.remove('open');
+                    showAdminPanel();
+                    toast('Bem-vindo, Admin!');
+                } else {
+                    document.getElementById('loginError').classList.add('show');
+                    toast('Usuário ou senha inválidos.', 'error');
+                }
+            }
+
+            function checkAuth() {
+                if (sessionStorage.getItem('adminAuth') === 'true') {
+                    currentUser = { email: 'admin' };
                 }
             }
 
             // ============================================================
-            // 6. CRUD – EMPRESA
+            // 6. CRUD – EMPRESA (mesmo de antes)
             // ============================================================
             async function loadCompany() {
                 if (!supabaseClient) return null;
@@ -1375,7 +1367,7 @@
             }
 
             // ============================================================
-            // 7. CRUD – SOBRE
+            // 7. CRUD – SOBRE (mesmo de antes)
             // ============================================================
             async function loadAbout() {
                 if (!supabaseClient) return null;
@@ -1420,7 +1412,7 @@
             }
 
             // ============================================================
-            // 8. CRUD – CARROSSEL
+            // 8. CRUD – CARROSSEL (mesmo de antes)
             // ============================================================
             async function loadCarousel() {
                 if (!supabaseClient) return [];
@@ -1488,7 +1480,7 @@
             }
 
             // ============================================================
-            // 9. CRUD – EVENTOS
+            // 9. CRUD – EVENTOS (mesmo de antes)
             // ============================================================
             async function loadEvents() {
                 if (!supabaseClient) return [];
@@ -1556,7 +1548,7 @@
             }
 
             // ============================================================
-            // 10. RENDER CLIENT
+            // 10. RENDER CLIENT (mesmo de antes)
             // ============================================================
             async function renderClient() {
                 const company = await loadCompany();
@@ -1596,7 +1588,7 @@
             }
 
             // ============================================================
-            // 11. CARROSSEL
+            // 11. CARROSSEL (mesmo de antes)
             // ============================================================
             function renderCarousel(items) {
                 carouselItems = items || [];
@@ -1678,7 +1670,7 @@
             }
 
             // ============================================================
-            // 12. EVENTOS (cliente)
+            // 12. EVENTOS (cliente) – mesmo de antes
             // ============================================================
             function renderEvents(events) {
                 const grid = document.getElementById('eventsGrid');
@@ -1705,7 +1697,7 @@
             }
 
             // ============================================================
-            // 13. ADMIN FORMS
+            // 13. ADMIN FORMS (mesmo de antes)
             // ============================================================
             async function loadAdminForms() {
                 const company = await loadCompany();
@@ -1783,29 +1775,29 @@
             }
 
             // ============================================================
-            // 14. MUDAR SENHA (via Supabase Auth)
+            // 14. ALTERAR SENHA (agora salva no localStorage)
             // ============================================================
-            async function changePassword(e) {
+            function changePassword(e) {
                 e.preventDefault();
-                if (!currentUser) { toast('Faça login primeiro.', 'error'); return; }
-                if (!supabaseClient) { toast('Supabase não disponível.', 'error'); return; }
-
                 const newPass = document.getElementById('newPassword').value;
                 const confirmPass = document.getElementById('confirmPassword').value;
-                if (newPass.length < 6) { toast('Mínimo 6 caracteres.', 'error'); return; }
-                if (newPass !== confirmPass) { toast('Senhas não conferem.', 'error'); return; }
 
-                const { error } = await supabaseClient.auth.updateUser({ password: newPass });
-                if (error) {
-                    toast('Erro ao alterar senha: ' + error.message, 'error');
-                } else {
-                    toast('Senha alterada com sucesso!');
-                    document.getElementById('formSenha').reset();
+                if (newPass.length < 4) {
+                    toast('Mínimo 4 caracteres.', 'error');
+                    return;
                 }
+                if (newPass !== confirmPass) {
+                    toast('Senhas não conferem.', 'error');
+                    return;
+                }
+
+                localStorage.setItem('adminPassword', newPass);
+                toast('Senha alterada com sucesso! (admin / ' + newPass + ')');
+                document.getElementById('formSenha').reset();
             }
 
             // ============================================================
-            // 15. ADMIN TOGGLE / ABRIR/FECHAR
+            // 15. ADMIN TOGGLE / ABRIR/FECHAR (mesmo de antes)
             // ============================================================
             function toggleAdmin() {
                 if (isAdminOpen) {
@@ -1822,7 +1814,7 @@
                 }
                 document.getElementById('adminLogin').classList.add('open');
                 document.getElementById('loginError').classList.remove('show');
-                document.getElementById('loginEmail').value = '';
+                document.getElementById('loginEmail').value = 'admin';
                 document.getElementById('loginPassword').value = '';
                 document.getElementById('loginEmail').focus();
             }
@@ -1845,15 +1837,12 @@
             // 16. EVENTOS DE DOM E INICIALIZAÇÃO
             // ============================================================
             document.addEventListener('DOMContentLoaded', async function() {
-                // Associa o evento do toggle
                 document.getElementById('adminToggle').addEventListener('click', toggleAdmin);
 
-                // Fechar admin ao clicar no backdrop
                 document.getElementById('adminPanel').addEventListener('click', function(e) {
                     if (e.target === this) closeAdmin();
                 });
 
-                // Abas do admin
                 document.querySelectorAll('#adminTabsNav button').forEach(btn => {
                     btn.addEventListener('click', function() {
                         document.querySelectorAll('#adminTabsNav button').forEach(b => b.classList.remove(
@@ -1865,7 +1854,6 @@
                     });
                 });
 
-                // Abas do cliente (Sobre)
                 document.querySelectorAll('#aboutTabs .tab-btn').forEach(btn => {
                     btn.addEventListener('click', function() {
                         document.querySelectorAll('#aboutTabs .tab-btn').forEach(b => b.classList.remove(
@@ -1878,7 +1866,6 @@
                     });
                 });
 
-                // Preview da logo
                 document.getElementById('logoInput').addEventListener('change', function(e) {
                     const file = this.files[0];
                     if (file) {
@@ -1892,8 +1879,7 @@
                     }
                 });
 
-                // Inicialização
-                await checkAuth();
+                checkAuth();
                 await renderClient();
                 startAutoPlay();
 
@@ -1901,14 +1887,13 @@
                     await loadAdminForms();
                 }
 
-                // Fechar com ESC
                 document.addEventListener('keydown', function(e) {
                     if (e.key === 'Escape' && isAdminOpen) closeAdmin();
                 });
             });
 
             // ============================================================
-            // 17. EXPOR FUNÇÕES GLOBAIS (para onclick no HTML)
+            // 17. EXPOR FUNÇÕES GLOBAIS
             // ============================================================
             window.toggleAdmin = toggleAdmin;
             window.closeAdmin = closeAdmin;
