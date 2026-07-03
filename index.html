@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Empresa · Supabase</title>
+    <title>Empresa · Destaques</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
     </script>
@@ -101,6 +101,14 @@
         }
         .btn-block {
             width: 100%;
+        }
+        .btn-secondary {
+            background: #6c757d;
+            color: var(--white);
+        }
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
         }
         #adminToggle {
             position: fixed;
@@ -205,18 +213,18 @@
         .client-nav a:hover::after {
             width: 100%;
         }
-        .carousel-section {
+        .destaques-section {
             padding: 60px 0 40px;
             background: var(--white);
         }
-        .carousel-section h2 {
+        .destaques-section h2 {
             text-align: center;
             font-size: 2rem;
             margin-bottom: 32px;
             color: var(--primary-dark);
             font-weight: 700;
         }
-        .carousel-wrapper {
+        .destaques-wrapper {
             position: relative;
             max-width: 1100px;
             margin: 0 auto;
@@ -225,12 +233,12 @@
             box-shadow: var(--shadow);
             background: #e9ecef;
         }
-        .carousel-track {
+        .destaques-track {
             display: flex;
             transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             will-change: transform;
         }
-        .carousel-slide {
+        .destaque-slide {
             min-width: 100%;
             position: relative;
             display: flex;
@@ -238,7 +246,7 @@
             justify-content: center;
             background: #e9ecef;
         }
-        .carousel-slide img {
+        .destaque-slide img {
             width: 100%;
             height: auto;
             max-height: 520px;
@@ -246,7 +254,7 @@
             background: #e9ecef;
             display: block;
         }
-        .carousel-slide .slide-caption {
+        .destaque-slide .slide-caption {
             position: absolute;
             bottom: 0;
             left: 0;
@@ -256,18 +264,18 @@
             color: var(--white);
             pointer-events: none;
         }
-        .carousel-slide .slide-caption h3 {
+        .destaque-slide .slide-caption h3 {
             font-size: 1.8rem;
             font-weight: 700;
             margin-bottom: 4px;
             text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
-        .carousel-slide .slide-caption p {
+        .destaque-slide .slide-caption p {
             font-size: 1rem;
             opacity: 0.95;
             text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
         }
-        .carousel-btn {
+        .destaques-btn {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
@@ -286,23 +294,23 @@
             justify-content: center;
             backdrop-filter: blur(4px);
         }
-        .carousel-btn:hover {
+        .destaques-btn:hover {
             background: rgba(0, 0, 0, 0.75);
             transform: translateY(-50%) scale(1.05);
         }
-        .carousel-btn.prev {
+        .destaques-btn.prev {
             left: 18px;
         }
-        .carousel-btn.next {
+        .destaques-btn.next {
             right: 18px;
         }
-        .carousel-dots {
+        .destaques-dots {
             display: flex;
             justify-content: center;
             gap: 12px;
             margin-top: 20px;
         }
-        .carousel-dots span {
+        .destaques-dots span {
             width: 14px;
             height: 14px;
             border-radius: 50%;
@@ -311,18 +319,18 @@
             transition: var(--transition);
             border: 2px solid transparent;
         }
-        .carousel-dots span.active {
+        .destaques-dots span.active {
             background: var(--primary);
             border-color: var(--primary);
             transform: scale(1.15);
         }
-        .carousel-empty {
+        .destaques-empty {
             text-align: center;
             padding: 80px 20px;
             color: #999;
             background: #f8f9fa;
         }
-        .carousel-empty i {
+        .destaques-empty i {
             font-size: 3rem;
             margin-bottom: 12px;
             display: block;
@@ -795,6 +803,14 @@
         .login-box .login-error.show {
             display: block;
         }
+        .login-box .login-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+        }
+        .login-box .login-actions .btn {
+            flex: 1;
+        }
         .toast-container {
             position: fixed;
             bottom: 80px;
@@ -842,24 +858,24 @@
                 justify-content: flex-start;
                 gap: 16px;
             }
-            .carousel-slide img {
+            .destaque-slide img {
                 max-height: 300px;
             }
-            .carousel-slide .slide-caption {
+            .destaque-slide .slide-caption {
                 padding: 18px 20px 16px;
             }
-            .carousel-slide .slide-caption h3 {
+            .destaque-slide .slide-caption h3 {
                 font-size: 1.2rem;
             }
-            .carousel-btn {
+            .destaques-btn {
                 width: 40px;
                 height: 40px;
                 font-size: 1rem;
             }
-            .carousel-btn.prev {
+            .destaques-btn.prev {
                 left: 10px;
             }
-            .carousel-btn.next {
+            .destaques-btn.next {
                 right: 10px;
             }
             .events-grid {
@@ -891,13 +907,13 @@
             .client-brand h1 {
                 font-size: 1.1rem;
             }
-            .carousel-slide img {
+            .destaque-slide img {
                 max-height: 220px;
             }
-            .carousel-slide .slide-caption h3 {
+            .destaque-slide .slide-caption h3 {
                 font-size: 1rem;
             }
-            .carousel-slide .slide-caption p {
+            .destaque-slide .slide-caption p {
                 font-size: 0.85rem;
             }
             .admin-item-card {
@@ -947,11 +963,11 @@
         <i class="fas fa-times"></i>
     </button>
 
-    <!-- ===== ADMIN LOGIN (alterado para admin/123) ===== -->
+    <!-- ===== ADMIN LOGIN (com botão Cancelar) ===== -->
     <div id="adminLogin">
         <div class="login-box">
             <h2><i class="fas fa-lock" style="color:var(--accent);margin-right:8px;"></i>Admin</h2>
-            <p>Digite <strong>admin</strong> e senha <strong>123</strong></p>
+            <p>Digite <strong>admin</strong> e a senha cadastrada</p>
             <form onsubmit="handleLogin(event)">
                 <div class="admin-form-group">
                     <label for="loginEmail">Usuário</label>
@@ -961,7 +977,10 @@
                     <label for="loginPassword">Senha</label>
                     <input type="password" id="loginPassword" placeholder="123" value="123" required />
                 </div>
-                <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+                <div class="login-actions">
+                    <button type="submit" class="btn btn-primary">Entrar</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeLogin()">Cancelar</button>
+                </div>
                 <div class="login-error" id="loginError">Usuário ou senha inválidos.</div>
             </form>
         </div>
@@ -978,7 +997,7 @@
             <div class="admin-tabs-nav" id="adminTabsNav">
                 <button class="active" data-tab="tabEmpresa"><i class="fas fa-building"></i> Empresa</button>
                 <button data-tab="tabSobre"><i class="fas fa-info-circle"></i> Sobre</button>
-                <button data-tab="tabCarrossel"><i class="fas fa-images"></i> Carrossel</button>
+                <button data-tab="tabDestaques"><i class="fas fa-images"></i> Destaques</button>
                 <button data-tab="tabEventos"><i class="fas fa-calendar-alt"></i> Eventos</button>
                 <button data-tab="tabSenha"><i class="fas fa-key"></i> Senha</button>
             </div>
@@ -1041,13 +1060,13 @@
                 </form>
             </div>
 
-            <!-- CARROSSEL -->
-            <div class="admin-tab-pane" id="tabCarrossel">
-                <form id="formCarrossel" onsubmit="addCarouselItem(event)">
+            <!-- DESTAQUES -->
+            <div class="admin-tab-pane" id="tabDestaques">
+                <form id="formDestaque" onsubmit="addDestaqueItem(event)">
                     <div class="admin-form-row">
                         <div class="admin-form-group">
                             <label>Título <span class="required">*</span></label>
-                            <input type="text" id="slideTitle" placeholder="Título do slide" required />
+                            <input type="text" id="slideTitle" placeholder="Título do destaque" required />
                         </div>
                         <div class="admin-form-group">
                             <label>Descrição</label>
@@ -1058,11 +1077,11 @@
                         <label>Imagem <span class="required">*</span></label>
                         <input type="file" id="slideImage" accept="image/*" required />
                     </div>
-                    <button type="submit" class="btn btn-accent"><i class="fas fa-plus"></i> Adicionar ao Carrossel</button>
+                    <button type="submit" class="btn btn-accent"><i class="fas fa-plus"></i> Adicionar Destaque</button>
                 </form>
                 <hr />
-                <h4 style="margin-bottom:12px;">Slides existentes</h4>
-                <div id="carouselAdminList" class="admin-item-list"></div>
+                <h4 style="margin-bottom:12px;">Destaques existentes</h4>
+                <div id="destaquesAdminList" class="admin-item-list"></div>
             </div>
 
             <!-- EVENTOS -->
@@ -1093,7 +1112,7 @@
                 <div id="eventsAdminList" class="admin-item-list"></div>
             </div>
 
-            <!-- SENHA (alterar senha fixa) -->
+            <!-- SENHA -->
             <div class="admin-tab-pane" id="tabSenha">
                 <form id="formSenha" onsubmit="changePassword(event)">
                     <div class="admin-form-group">
@@ -1122,7 +1141,7 @@
                     <h1 id="clientCompanyName">Minha Empresa</h1>
                 </div>
                 <nav class="client-nav">
-                    <a href="#carrossel">Carrossel</a>
+                    <a href="#destaques">Destaques</a>
                     <a href="#eventos">Eventos</a>
                     <a href="#sobre">Sobre</a>
                     <a href="#contato">Contato</a>
@@ -1130,15 +1149,15 @@
             </div>
         </header>
 
-        <section class="carousel-section" id="carrossel">
+        <section class="destaques-section" id="destaques">
             <div class="container">
                 <h2>Destaques</h2>
-                <div class="carousel-wrapper">
-                    <div class="carousel-track" id="carouselTrack"></div>
-                    <button class="carousel-btn prev" onclick="moveCarousel(-1)"><i class="fas fa-chevron-left"></i></button>
-                    <button class="carousel-btn next" onclick="moveCarousel(1)"><i class="fas fa-chevron-right"></i></button>
+                <div class="destaques-wrapper">
+                    <div class="destaques-track" id="destaquesTrack"></div>
+                    <button class="destaques-btn prev" onclick="moveDestaque(-1)"><i class="fas fa-chevron-left"></i></button>
+                    <button class="destaques-btn next" onclick="moveDestaque(1)"><i class="fas fa-chevron-right"></i></button>
                 </div>
-                <div class="carousel-dots" id="carouselDots"></div>
+                <div class="destaques-dots" id="destaquesDots"></div>
             </div>
         </section>
 
@@ -1195,7 +1214,7 @@
                 </div>
                 <div>
                     <h4><i class="fas fa-link"></i> Links</h4>
-                    <a href="#carrossel">Carrossel</a><br />
+                    <a href="#destaques">Destaques</a><br />
                     <a href="#eventos">Eventos</a><br />
                     <a href="#sobre">Sobre</a>
                 </div>
@@ -1207,14 +1226,14 @@
     </div>
 
     <!-- ============================================================
-    JAVASCRIPT – APENAS A AUTENTICAÇÃO FOI ALTERADA
+    JAVASCRIPT – CORREÇÃO DO LOGIN E BOTÃO CANCELAR
     ============================================================ -->
     <script>
         (function() {
             'use strict';
 
             // ============================================================
-            // 1. CONFIGURAÇÃO DO SUPABASE (substitua pelos seus dados)
+            // 1. CONFIGURAÇÃO DO SUPABASE
             // ============================================================
             const SUPABASE_URL = 'https://vszmyzvquibzodwvgmax.supabase.co';
             const SUPABASE_ANON_KEY = 'sb_publishable_Gzj9jz1Amnukk9PagEWPcg_wv91xDno';
@@ -1237,19 +1256,21 @@
             // 3. VARIÁVEIS GLOBAIS
             // ============================================================
             let currentUser = null;
-            let carouselItems = [];
+            let destaquesItems = [];
             let currentSlide = 0;
             let autoPlayInterval = null;
             let isAdminOpen = false;
 
-            // Senha padrão (armazenada no localStorage para persistência)
+            // ============================================================
+            // 4. SENHA PADRÃO (GARANTIDA)
+            // ============================================================
             const DEFAULT_PASSWORD = '123';
             if (!localStorage.getItem('adminPassword')) {
                 localStorage.setItem('adminPassword', DEFAULT_PASSWORD);
             }
 
             // ============================================================
-            // 4. HELPERS
+            // 5. HELPERS
             // ============================================================
             function toast(message, type = 'success') {
                 const container = document.getElementById('toastContainer');
@@ -1276,14 +1297,14 @@
             }
 
             // ============================================================
-            // 5. AUTENTICAÇÃO – ALTERADA PARA ADMIN / 123
+            // 6. AUTENTICAÇÃO – CORRIGIDA
             // ============================================================
             function handleLogin(e) {
                 e.preventDefault();
                 const username = document.getElementById('loginEmail').value.trim();
                 const password = document.getElementById('loginPassword').value.trim();
 
-                // Credenciais fixas: admin / senha salva no localStorage
+                // Recupera a senha armazenada (ou usa a padrão)
                 const savedPassword = localStorage.getItem('adminPassword') || DEFAULT_PASSWORD;
 
                 if (username === 'admin' && password === savedPassword) {
@@ -1299,6 +1320,12 @@
                 }
             }
 
+            // Função para fechar a tela de login (botão Cancelar)
+            function closeLogin() {
+                document.getElementById('adminLogin').classList.remove('open');
+                document.getElementById('loginError').classList.remove('show');
+            }
+
             function checkAuth() {
                 if (sessionStorage.getItem('adminAuth') === 'true') {
                     currentUser = { email: 'admin' };
@@ -1306,7 +1333,7 @@
             }
 
             // ============================================================
-            // 6. CRUD – EMPRESA (mesmo de antes)
+            // 7. CRUD – EMPRESA
             // ============================================================
             async function loadCompany() {
                 if (!supabaseClient) return null;
@@ -1367,7 +1394,7 @@
             }
 
             // ============================================================
-            // 7. CRUD – SOBRE (mesmo de antes)
+            // 8. CRUD – SOBRE
             // ============================================================
             async function loadAbout() {
                 if (!supabaseClient) return null;
@@ -1412,22 +1439,22 @@
             }
 
             // ============================================================
-            // 8. CRUD – CARROSSEL (mesmo de antes)
+            // 9. CRUD – DESTAQUES
             // ============================================================
-            async function loadCarousel() {
+            async function loadDestaques() {
                 if (!supabaseClient) return [];
                 const { data, error } = await supabaseClient
                     .from('carousel')
                     .select('*')
                     .order('created_at', { ascending: true });
                 if (error) {
-                    console.error('Erro ao carregar carrossel:', error);
+                    console.error('Erro ao carregar destaques:', error);
                     return [];
                 }
                 return data;
             }
 
-            async function addCarouselItem(e) {
+            async function addDestaqueItem(e) {
                 e.preventDefault();
                 if (!currentUser) { toast('Faça login primeiro.', 'error'); return; }
                 if (!supabaseClient) { toast('Supabase não disponível.', 'error'); return; }
@@ -1450,18 +1477,18 @@
                         .insert([{ title, description, image }]);
 
                     if (error) throw error;
-                    toast('Slide adicionado!');
-                    document.getElementById('formCarrossel').reset();
+                    toast('Destaque adicionado!');
+                    document.getElementById('formDestaque').reset();
                     await renderClient();
                     await loadAdminForms();
                     startAutoPlay();
                 } catch (err) {
-                    toast('Erro ao adicionar slide: ' + err.message, 'error');
+                    toast('Erro ao adicionar destaque: ' + err.message, 'error');
                 }
             }
 
-            async function deleteCarouselItem(id) {
-                if (!confirm('Remover este slide?')) return;
+            async function deleteDestaqueItem(id) {
+                if (!confirm('Remover este destaque?')) return;
                 if (!currentUser) { toast('Faça login.', 'error'); return; }
                 if (!supabaseClient) { toast('Supabase não disponível.', 'error'); return; }
 
@@ -1472,7 +1499,7 @@
                 if (error) {
                     toast('Erro ao remover: ' + error.message, 'error');
                 } else {
-                    toast('Slide removido.');
+                    toast('Destaque removido.');
                     await renderClient();
                     await loadAdminForms();
                     startAutoPlay();
@@ -1480,7 +1507,7 @@
             }
 
             // ============================================================
-            // 9. CRUD – EVENTOS (mesmo de antes)
+            // 10. CRUD – EVENTOS
             // ============================================================
             async function loadEvents() {
                 if (!supabaseClient) return [];
@@ -1548,12 +1575,12 @@
             }
 
             // ============================================================
-            // 10. RENDER CLIENT (mesmo de antes)
+            // 11. RENDER CLIENT
             // ============================================================
             async function renderClient() {
                 const company = await loadCompany();
                 const about = await loadAbout();
-                const carousel = await loadCarousel();
+                const destaques = await loadDestaques();
                 const events = await loadEvents();
 
                 if (company) {
@@ -1582,25 +1609,25 @@
                     document.getElementById('displayValues').textContent = about.values || '...';
                 }
 
-                renderCarousel(carousel);
+                renderDestaques(destaques);
                 renderEvents(events);
                 document.getElementById('footerYear').textContent = new Date().getFullYear();
             }
 
             // ============================================================
-            // 11. CARROSSEL (mesmo de antes)
+            // 12. DESTAQUES (ex-carrossel)
             // ============================================================
-            function renderCarousel(items) {
-                carouselItems = items || [];
-                const track = document.getElementById('carouselTrack');
-                const dots = document.getElementById('carouselDots');
+            function renderDestaques(items) {
+                destaquesItems = items || [];
+                const track = document.getElementById('destaquesTrack');
+                const dots = document.getElementById('destaquesDots');
 
-                if (!carouselItems.length) {
+                if (!destaquesItems.length) {
                     track.innerHTML = `
-                        <div class="carousel-slide">
-                            <div class="carousel-empty">
+                        <div class="destaque-slide">
+                            <div class="destaques-empty">
                                 <i class="fas fa-images"></i>
-                                <p>Nenhuma imagem no carrossel. Adicione pelo painel admin.</p>
+                                <p>Nenhum destaque adicionado. Use o painel admin.</p>
                             </div>
                         </div>
                     `;
@@ -1609,9 +1636,9 @@
                     return;
                 }
 
-                track.innerHTML = carouselItems.map((item) => `
-                        <div class="carousel-slide">
-                            <img src="${item.image}" alt="${item.title || 'Slide'}" />
+                track.innerHTML = destaquesItems.map((item) => `
+                        <div class="destaque-slide">
+                            <img src="${item.image}" alt="${item.title || 'Destaque'}" />
                             <div class="slide-caption">
                                 <h3>${item.title || ''}</h3>
                                 <p>${item.description || ''}</p>
@@ -1619,18 +1646,18 @@
                         </div>
                     `).join('');
 
-                dots.innerHTML = carouselItems.map((_, idx) => `
+                dots.innerHTML = destaquesItems.map((_, idx) => `
                         <span class="${idx === 0 ? 'active' : ''}" onclick="goToSlide(${idx})"></span>
                     `).join('');
 
                 currentSlide = 0;
-                updateCarousel();
+                updateDestaques();
             }
 
-            function updateCarousel() {
-                const track = document.getElementById('carouselTrack');
-                const dots = document.querySelectorAll('#carouselDots span');
-                const total = carouselItems.length;
+            function updateDestaques() {
+                const track = document.getElementById('destaquesTrack');
+                const dots = document.querySelectorAll('#destaquesDots span');
+                const total = destaquesItems.length;
                 if (!total) return;
                 if (currentSlide < 0) currentSlide = total - 1;
                 if (currentSlide >= total) currentSlide = 0;
@@ -1640,24 +1667,24 @@
                 });
             }
 
-            function moveCarousel(dir) {
-                if (!carouselItems.length) return;
+            function moveDestaque(dir) {
+                if (!destaquesItems.length) return;
                 currentSlide += dir;
-                updateCarousel();
+                updateDestaques();
             }
 
             function goToSlide(idx) {
-                if (idx < 0 || idx >= carouselItems.length) return;
+                if (idx < 0 || idx >= destaquesItems.length) return;
                 currentSlide = idx;
-                updateCarousel();
+                updateDestaques();
             }
 
             function startAutoPlay() {
                 stopAutoPlay();
                 autoPlayInterval = setInterval(() => {
-                    if (carouselItems.length > 0) {
+                    if (destaquesItems.length > 0) {
                         currentSlide++;
-                        updateCarousel();
+                        updateDestaques();
                     }
                 }, 5000);
             }
@@ -1670,7 +1697,7 @@
             }
 
             // ============================================================
-            // 12. EVENTOS (cliente) – mesmo de antes
+            // 13. EVENTOS (cliente)
             // ============================================================
             function renderEvents(events) {
                 const grid = document.getElementById('eventsGrid');
@@ -1697,12 +1724,12 @@
             }
 
             // ============================================================
-            // 13. ADMIN FORMS (mesmo de antes)
+            // 14. ADMIN FORMS
             // ============================================================
             async function loadAdminForms() {
                 const company = await loadCompany();
                 const about = await loadAbout();
-                const carousel = await loadCarousel();
+                const destaques = await loadDestaques();
                 const events = await loadEvents();
 
                 if (company) {
@@ -1726,14 +1753,14 @@
                     document.getElementById('aboutValues').value = about.values || '';
                 }
 
-                renderAdminCarouselList(carousel);
+                renderAdminDestaquesList(destaques);
                 renderAdminEventsList(events);
             }
 
-            function renderAdminCarouselList(items) {
-                const container = document.getElementById('carouselAdminList');
+            function renderAdminDestaquesList(items) {
+                const container = document.getElementById('destaquesAdminList');
                 if (!items || items.length === 0) {
-                    container.innerHTML = `<p style="color:#999;padding:8px 0;">Nenhum slide.</p>`;
+                    container.innerHTML = `<p style="color:#999;padding:8px 0;">Nenhum destaque.</p>`;
                     return;
                 }
                 container.innerHTML = items.map(item => `
@@ -1744,7 +1771,7 @@
                                 <small>${item.description || ''}</small>
                             </div>
                             <div class="actions">
-                                <button class="btn btn-danger btn-sm" onclick="deleteCarouselItem('${item.id}')">
+                                <button class="btn btn-danger btn-sm" onclick="deleteDestaqueItem('${item.id}')">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </div>
@@ -1775,7 +1802,7 @@
             }
 
             // ============================================================
-            // 14. ALTERAR SENHA (agora salva no localStorage)
+            // 15. ALTERAR SENHA
             // ============================================================
             function changePassword(e) {
                 e.preventDefault();
@@ -1797,7 +1824,7 @@
             }
 
             // ============================================================
-            // 15. ADMIN TOGGLE / ABRIR/FECHAR (mesmo de antes)
+            // 16. ADMIN TOGGLE / ABRIR/FECHAR
             // ============================================================
             function toggleAdmin() {
                 if (isAdminOpen) {
@@ -1834,7 +1861,7 @@
             }
 
             // ============================================================
-            // 16. EVENTOS DE DOM E INICIALIZAÇÃO
+            // 17. EVENTOS DE DOM E INICIALIZAÇÃO
             // ============================================================
             document.addEventListener('DOMContentLoaded', async function() {
                 document.getElementById('adminToggle').addEventListener('click', toggleAdmin);
@@ -1893,19 +1920,20 @@
             });
 
             // ============================================================
-            // 17. EXPOR FUNÇÕES GLOBAIS
+            // 18. EXPOR FUNÇÕES GLOBAIS
             // ============================================================
             window.toggleAdmin = toggleAdmin;
             window.closeAdmin = closeAdmin;
+            window.closeLogin = closeLogin;
             window.handleLogin = handleLogin;
             window.saveCompany = saveCompany;
             window.saveAbout = saveAbout;
-            window.addCarouselItem = addCarouselItem;
-            window.deleteCarouselItem = deleteCarouselItem;
+            window.addDestaqueItem = addDestaqueItem;
+            window.deleteDestaqueItem = deleteDestaqueItem;
             window.addEvent = addEvent;
             window.deleteEvent = deleteEvent;
             window.changePassword = changePassword;
-            window.moveCarousel = moveCarousel;
+            window.moveDestaque = moveDestaque;
             window.goToSlide = goToSlide;
 
         })();
