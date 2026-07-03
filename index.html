@@ -4,13 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Empresa · Supabase</title>
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <!-- Supabase JS SDK -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Carrega o SDK do Supabase (uma única vez) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+    </script>
     <style>
-        /* ===== Mesmo estilo do site anterior, mantido ===== */
-        * { margin:0; padding:0; box-sizing:border-box; }
+        /* ===== MESMO ESTILO ANTERIOR (mantido) ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         :root {
             --primary: #1a3a5c;
             --primary-light: #2a5a8c;
@@ -20,200 +24,917 @@
             --gray: #f8f9fa;
             --gray-dark: #2d3436;
             --white: #ffffff;
-            --shadow: 0 8px 30px rgba(0,0,0,0.08);
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
             --radius: 16px;
             --transition: 0.3s ease;
             --font: 'Segoe UI', system-ui, sans-serif;
         }
-        html { scroll-behavior: smooth; }
-        body { font-family: var(--font); background: #fafafa; color: var(--gray-dark); line-height: 1.6; }
-        a { color: var(--primary); text-decoration: none; }
-        img { max-width: 100%; display: block; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-
-        .btn { display: inline-block; padding: 10px 28px; border: none; border-radius: 50px; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: var(--transition); text-align: center; }
-        .btn-primary { background: var(--primary); color: var(--white); }
-        .btn-primary:hover { background: var(--primary-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(26,58,92,0.25); }
-        .btn-accent { background: var(--accent); color: var(--white); }
-        .btn-accent:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(192,57,43,0.25); }
-        .btn-danger { background: #e74c3c; color: var(--white); }
-        .btn-danger:hover { background: #c0392b; }
-        .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
-        .btn-outline:hover { background: var(--primary); color: var(--white); }
-        .btn-sm { padding: 6px 16px; font-size: 0.8rem; }
-        .btn-block { width: 100%; }
-
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: var(--font);
+            background: #fafafa;
+            color: var(--gray-dark);
+            line-height: 1.6;
+        }
+        a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        img {
+            max-width: 100%;
+            display: block;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 28px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+        .btn-primary:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(26, 58, 92, 0.25);
+        }
+        .btn-accent {
+            background: var(--accent);
+            color: var(--white);
+        }
+        .btn-accent:hover {
+            background: var(--accent-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(192, 57, 43, 0.25);
+        }
+        .btn-danger {
+            background: #e74c3c;
+            color: var(--white);
+        }
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+        .btn-sm {
+            padding: 6px 16px;
+            font-size: 0.8rem;
+        }
+        .btn-block {
+            width: 100%;
+        }
         #adminToggle {
-            position: fixed; bottom: 24px; right: 24px; z-index: 999;
-            background: var(--primary); color: var(--white); border: none;
-            border-radius: 50%; width: 56px; height: 56px; font-size: 1.4rem;
-            cursor: pointer; box-shadow: var(--shadow); transition: var(--transition);
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 999;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            width: 56px;
+            height: 56px;
+            font-size: 1.4rem;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
         }
-        #adminToggle:hover { transform: scale(1.05); background: var(--primary-light); }
-        #adminToggle .fa-times { display: none; }
-        #adminToggle.active .fa-cog { display: none; }
-        #adminToggle.active .fa-times { display: inline; }
-
-        /* HEADER */
+        #adminToggle:hover {
+            transform: scale(1.05);
+            background: var(--primary-light);
+        }
+        #adminToggle .fa-times {
+            display: none;
+        }
+        #adminToggle.active .fa-cog {
+            display: none;
+        }
+        #adminToggle.active .fa-times {
+            display: inline;
+        }
         .client-header {
-            background: var(--primary-dark); color: var(--white); padding: 14px 0;
-            position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 16px rgba(0,0,0,0.15);
+            background: var(--primary-dark);
+            color: var(--white);
+            padding: 14px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.15);
         }
-        .client-header .container { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-        .client-brand { display: flex; align-items: center; gap: 14px; }
-        .client-brand .logo-img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; background: var(--white); border: 2px solid var(--accent); }
-        .client-brand .logo-placeholder { width: 48px; height: 48px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; font-weight: 700; color: var(--white); }
-        .client-brand h1 { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.5px; }
-        .client-nav { display: flex; gap: 24px; flex-wrap: wrap; }
-        .client-nav a { color: rgba(255,255,255,0.8); font-weight: 500; transition: var(--transition); font-size: 0.95rem; position: relative; }
-        .client-nav a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--accent); transition: var(--transition); }
-        .client-nav a:hover { color: var(--white); }
-        .client-nav a:hover::after { width: 100%; }
-
-        /* CARROSSEL */
-        .carousel-section { padding: 60px 0 40px; background: var(--white); }
-        .carousel-section h2 { text-align: center; font-size: 2rem; margin-bottom: 32px; color: var(--primary-dark); font-weight: 700; }
-        .carousel-wrapper { position: relative; max-width: 1100px; margin: 0 auto; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); background: #e9ecef; }
-        .carousel-track { display: flex; transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94); will-change: transform; }
-        .carousel-slide { min-width: 100%; position: relative; display: flex; align-items: center; justify-content: center; background: #e9ecef; }
-        .carousel-slide img { width: 100%; height: auto; max-height: 520px; object-fit: contain; background: #e9ecef; display: block; }
-        .carousel-slide .slide-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 30px 40px 28px; background: linear-gradient(transparent, rgba(0,0,0,0.65)); color: var(--white); pointer-events: none; }
-        .carousel-slide .slide-caption h3 { font-size: 1.8rem; font-weight: 700; margin-bottom: 4px; text-shadow: 0 2px 8px rgba(0,0,0,0.3); }
-        .carousel-slide .slide-caption p { font-size: 1rem; opacity: 0.95; text-shadow: 0 1px 6px rgba(0,0,0,0.3); }
-        .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.45); color: var(--white); border: none; width: 48px; height: 48px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; transition: var(--transition); z-index: 10; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
-        .carousel-btn:hover { background: rgba(0,0,0,0.75); transform: translateY(-50%) scale(1.05); }
-        .carousel-btn.prev { left: 18px; }
-        .carousel-btn.next { right: 18px; }
-        .carousel-dots { display: flex; justify-content: center; gap: 12px; margin-top: 20px; }
-        .carousel-dots span { width: 14px; height: 14px; border-radius: 50%; background: #ced4da; cursor: pointer; transition: var(--transition); border: 2px solid transparent; }
-        .carousel-dots span.active { background: var(--primary); border-color: var(--primary); transform: scale(1.15); }
-        .carousel-empty { text-align: center; padding: 80px 20px; color: #999; background: #f8f9fa; }
-        .carousel-empty i { font-size: 3rem; margin-bottom: 12px; display: block; color: #ced4da; }
-
-        /* EVENTOS */
-        .events-section { padding: 60px 0 70px; background: #f8f9fa; }
-        .events-section .section-title { text-align: center; font-size: 2rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 12px; }
-        .events-section .section-subtitle { text-align: center; color: #6c757d; margin-bottom: 40px; font-size: 1.05rem; }
-        .events-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 30px; }
-        .event-card { background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.06); transition: var(--transition); display: flex; flex-direction: column; border: 1px solid rgba(0,0,0,0.03); }
-        .event-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(0,0,0,0.10); }
-        .event-card .event-image { width: 100%; height: 220px; object-fit: cover; background: #e9ecef; }
-        .event-card .event-body { padding: 20px 22px 24px; flex: 1; display: flex; flex-direction: column; }
-        .event-card .event-body h3 { font-size: 1.2rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 8px; line-height: 1.3; }
-        .event-card .event-body p { color: #495057; font-size: 0.95rem; line-height: 1.6; flex: 1; }
-        .event-card .event-body .event-date { font-size: 0.8rem; color: #868e96; margin-top: 12px; border-top: 1px solid #e9ecef; padding-top: 12px; display: flex; align-items: center; gap: 8px; }
-        .event-card .event-body .event-date i { color: var(--accent); }
-        .events-empty { text-align: center; padding: 60px 20px; color: #999; grid-column: 1 / -1; }
-        .events-empty i { font-size: 3rem; display: block; margin-bottom: 16px; color: #ced4da; }
-
-        /* SOBRE */
-        .about-section { padding: 60px 0 70px; background: var(--white); }
-        .about-section .container { max-width: 900px; }
-        .about-section h2 { text-align: center; font-size: 2rem; color: var(--primary-dark); margin-bottom: 8px; font-weight: 700; }
-        .about-section .subtitle { text-align: center; color: #6c757d; margin-bottom: 40px; font-size: 1.05rem; }
-        .tabs { display: flex; flex-wrap: wrap; gap: 6px; border-bottom: 2px solid #e9ecef; margin-bottom: 32px; justify-content: center; }
-        .tab-btn { padding: 12px 28px; background: transparent; border: none; font-weight: 600; font-size: 1rem; color: #6c757d; cursor: pointer; transition: var(--transition); position: relative; border-radius: 8px 8px 0 0; }
-        .tab-btn:hover { color: var(--primary); background: #f1f3f5; }
-        .tab-btn.active { color: var(--primary); background: #e9ecef; }
-        .tab-btn.active::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 3px; background: var(--primary); border-radius: 3px 3px 0 0; }
-        .tab-content { display: none; animation: fadeUp 0.4s ease; }
-        .tab-content.active { display: block; }
-        .tab-content h3 { font-size: 1.5rem; color: var(--primary-dark); margin-bottom: 12px; }
-        .tab-content p { color: #495057; font-size: 1.05rem; line-height: 1.8; }
-        @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
-
-        /* FOOTER */
-        .client-footer { background: var(--primary-dark); color: rgba(255,255,255,0.8); padding: 44px 0 28px; }
-        .client-footer .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: 32px; }
-        .client-footer h4 { color: var(--white); margin-bottom: 12px; font-size: 1.1rem; font-weight: 600; }
-        .client-footer p, .client-footer a { color: rgba(255,255,255,0.7); font-size: 0.95rem; line-height: 1.8; }
-        .client-footer a:hover { color: var(--white); }
-        .client-footer .footer-bottom { grid-column: 1 / -1; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 20px; text-align: center; font-size: 0.85rem; color: rgba(255,255,255,0.4); }
-
-        /* ADMIN PANEL */
-        #adminPanel { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.55); backdrop-filter: blur(6px); overflow-y: auto; padding: 30px 20px; }
-        #adminPanel.open { display: flex; align-items: flex-start; justify-content: center; }
-        .admin-card { background: var(--white); border-radius: var(--radius); max-width: 940px; width: 100%; padding: 30px 35px; box-shadow: 0 30px 70px rgba(0,0,0,0.25); animation: slideUp 0.3s ease; max-height: 92vh; overflow-y: auto; }
-        @keyframes slideUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
-        .admin-card .admin-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e9ecef; padding-bottom: 16px; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
-        .admin-card .admin-header h2 { font-size: 1.6rem; color: var(--primary-dark); }
-        .admin-card .admin-header h2 i { color: var(--accent); margin-right: 10px; }
-        .admin-card .admin-close { background: #e9ecef; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; transition: var(--transition); }
-        .admin-card .admin-close:hover { background: #dee2e6; }
-        .admin-tabs-nav { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 24px; border-bottom: 2px solid #e9ecef; }
-        .admin-tabs-nav button { padding: 10px 22px; background: transparent; border: none; font-weight: 600; font-size: 0.9rem; color: #6c757d; cursor: pointer; transition: var(--transition); border-radius: 8px 8px 0 0; display: flex; align-items: center; gap: 8px; }
-        .admin-tabs-nav button:hover { color: var(--primary); background: #f1f3f5; }
-        .admin-tabs-nav button.active { color: var(--primary); background: #e9ecef; border-bottom: 3px solid var(--primary); }
-        .admin-tab-pane { display: none; animation: fadeUp 0.3s ease; }
-        .admin-tab-pane.active { display: block; }
-        .admin-form-group { margin-bottom: 18px; }
-        .admin-form-group label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 4px; color: var(--gray-dark); }
-        .admin-form-group label .required { color: #e74c3c; }
-        .admin-form-group input, .admin-form-group textarea { width: 100%; padding: 10px 14px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 1rem; transition: var(--transition); font-family: var(--font); background: var(--white); }
-        .admin-form-group input:focus, .admin-form-group textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(26,58,92,0.08); }
-        .admin-form-group textarea { min-height: 80px; resize: vertical; }
-        .admin-form-group .file-input-wrapper { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-        .admin-form-group .file-input-wrapper input[type="file"] { flex: 1; padding: 8px; border: 2px dashed #e9ecef; border-radius: 8px; cursor: pointer; background: #fafafa; }
-        .admin-form-group .file-input-wrapper .preview { width: 60px; height: 60px; border-radius: 8px; object-fit: cover; border: 2px solid #e9ecef; background: #f8f9fa; }
-        .admin-form-group .helper { font-size: 0.8rem; color: #888; margin-top: 4px; }
-        .admin-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-        @media (max-width:600px) { .admin-form-row { grid-template-columns:1fr; } }
-        .admin-item-list { display: grid; gap: 14px; margin-top: 12px; }
-        .admin-item-card { display: flex; gap: 16px; align-items: center; background: #f8f9fa; padding: 12px 16px; border-radius: 10px; border: 1px solid #e9ecef; flex-wrap: wrap; transition: var(--transition); }
-        .admin-item-card:hover { background: #f1f3f5; }
-        .admin-item-card img { width: 80px; height: 60px; object-fit: cover; border-radius: 6px; border: 1px solid #dee2e6; background: var(--white); }
-        .admin-item-card .info { flex: 1; min-width: 120px; }
-        .admin-item-card .info strong { display: block; font-size: 0.95rem; color: var(--primary-dark); }
-        .admin-item-card .info small { color: #888; font-size: 0.8rem; }
-        .admin-item-card .actions { display: flex; gap: 8px; }
-
-        /* LOGIN */
-        #adminLogin { display: none; position: fixed; inset: 0; z-index: 1100; background: rgba(0,0,0,0.65); backdrop-filter: blur(6px); align-items: center; justify-content: center; padding: 20px; }
-        #adminLogin.open { display: flex; }
-        .login-box { background: var(--white); border-radius: var(--radius); padding: 40px 35px; max-width: 400px; width: 100%; box-shadow: 0 30px 70px rgba(0,0,0,0.3); animation: slideUp 0.3s ease; }
-        .login-box h2 { text-align: center; color: var(--primary-dark); margin-bottom: 8px; }
-        .login-box p { text-align: center; color: #888; margin-bottom: 24px; font-size: 0.95rem; }
-        .login-box .login-error { color: #e74c3c; text-align: center; font-size: 0.9rem; margin-top: 12px; display: none; }
-        .login-box .login-error.show { display: block; }
-
-        .toast-container { position: fixed; bottom: 80px; right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
-        .toast { padding: 14px 24px; border-radius: 10px; color: var(--white); font-weight: 500; box-shadow: 0 8px 24px rgba(0,0,0,0.12); animation: slideIn 0.3s ease; max-width: 360px; }
-        .toast-success { background: #27ae60; }
-        .toast-error { background: #e74c3c; }
-        .toast-info { background: var(--primary); }
-        @keyframes slideIn { from { opacity:0; transform:translateX(40px); } to { opacity:1; transform:translateX(0); } }
-
+        .client-header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .client-brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .client-brand .logo-img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: var(--white);
+            border: 2px solid var(--accent);
+        }
+        .client-brand .logo-placeholder {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+        .client-brand h1 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .client-nav {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        .client-nav a {
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            position: relative;
+        }
+        .client-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+        .client-nav a:hover {
+            color: var(--white);
+        }
+        .client-nav a:hover::after {
+            width: 100%;
+        }
+        .carousel-section {
+            padding: 60px 0 40px;
+            background: var(--white);
+        }
+        .carousel-section h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 32px;
+            color: var(--primary-dark);
+            font-weight: 700;
+        }
+        .carousel-wrapper {
+            position: relative;
+            max-width: 1100px;
+            margin: 0 auto;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            background: #e9ecef;
+        }
+        .carousel-track {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform;
+        }
+        .carousel-slide {
+            min-width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e9ecef;
+        }
+        .carousel-slide img {
+            width: 100%;
+            height: auto;
+            max-height: 520px;
+            object-fit: contain;
+            background: #e9ecef;
+            display: block;
+        }
+        .carousel-slide .slide-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 30px 40px 28px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.65));
+            color: var(--white);
+            pointer-events: none;
+        }
+        .carousel-slide .slide-caption h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        .carousel-slide .slide-caption p {
+            font-size: 1rem;
+            opacity: 0.95;
+            text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+        }
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.45);
+            color: var(--white);
+            border: none;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+        }
+        .carousel-btn:hover {
+            background: rgba(0, 0, 0, 0.75);
+            transform: translateY(-50%) scale(1.05);
+        }
+        .carousel-btn.prev {
+            left: 18px;
+        }
+        .carousel-btn.next {
+            right: 18px;
+        }
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        .carousel-dots span {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #ced4da;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+        .carousel-dots span.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: scale(1.15);
+        }
+        .carousel-empty {
+            text-align: center;
+            padding: 80px 20px;
+            color: #999;
+            background: #f8f9fa;
+        }
+        .carousel-empty i {
+            font-size: 3rem;
+            margin-bottom: 12px;
+            display: block;
+            color: #ced4da;
+        }
+        .events-section {
+            padding: 60px 0 70px;
+            background: #f8f9fa;
+        }
+        .events-section .section-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 12px;
+        }
+        .events-section .section-subtitle {
+            text-align: center;
+            color: #6c757d;
+            margin-bottom: 40px;
+            font-size: 1.05rem;
+        }
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        .event-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+        .event-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.10);
+        }
+        .event-card .event-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            background: #e9ecef;
+        }
+        .event-card .event-body {
+            padding: 20px 22px 24px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .event-card .event-body h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+        .event-card .event-body p {
+            color: #495057;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            flex: 1;
+        }
+        .event-card .event-body .event-date {
+            font-size: 0.8rem;
+            color: #868e96;
+            margin-top: 12px;
+            border-top: 1px solid #e9ecef;
+            padding-top: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .event-card .event-body .event-date i {
+            color: var(--accent);
+        }
+        .events-empty {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+            grid-column: 1 / -1;
+        }
+        .events-empty i {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 16px;
+            color: #ced4da;
+        }
+        .about-section {
+            padding: 60px 0 70px;
+            background: var(--white);
+        }
+        .about-section .container {
+            max-width: 900px;
+        }
+        .about-section h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        .about-section .subtitle {
+            text-align: center;
+            color: #6c757d;
+            margin-bottom: 40px;
+            font-size: 1.05rem;
+        }
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            border-bottom: 2px solid #e9ecef;
+            margin-bottom: 32px;
+            justify-content: center;
+        }
+        .tab-btn {
+            padding: 12px 28px;
+            background: transparent;
+            border: none;
+            font-weight: 600;
+            font-size: 1rem;
+            color: #6c757d;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            border-radius: 8px 8px 0 0;
+        }
+        .tab-btn:hover {
+            color: var(--primary);
+            background: #f1f3f5;
+        }
+        .tab-btn.active {
+            color: var(--primary);
+            background: #e9ecef;
+        }
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px 3px 0 0;
+        }
+        .tab-content {
+            display: none;
+            animation: fadeUp 0.4s ease;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .tab-content h3 {
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 12px;
+        }
+        .tab-content p {
+            color: #495057;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .client-footer {
+            background: var(--primary-dark);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 44px 0 28px;
+        }
+        .client-footer .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 32px;
+        }
+        .client-footer h4 {
+            color: var(--white);
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        .client-footer p,
+        .client-footer a {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+        .client-footer a:hover {
+            color: var(--white);
+        }
+        .client-footer .footer-bottom {
+            grid-column: 1 / -1;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 20px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+        #adminPanel {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(6px);
+            overflow-y: auto;
+            padding: 30px 20px;
+        }
+        #adminPanel.open {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+        .admin-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            max-width: 940px;
+            width: 100%;
+            padding: 30px 35px;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.25);
+            animation: slideUp 0.3s ease;
+            max-height: 92vh;
+            overflow-y: auto;
+        }
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .admin-card .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .admin-card .admin-header h2 {
+            font-size: 1.6rem;
+            color: var(--primary-dark);
+        }
+        .admin-card .admin-header h2 i {
+            color: var(--accent);
+            margin-right: 10px;
+        }
+        .admin-card .admin-close {
+            background: #e9ecef;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .admin-card .admin-close:hover {
+            background: #dee2e6;
+        }
+        .admin-tabs-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-bottom: 24px;
+            border-bottom: 2px solid #e9ecef;
+        }
+        .admin-tabs-nav button {
+            padding: 10px 22px;
+            background: transparent;
+            border: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #6c757d;
+            cursor: pointer;
+            transition: var(--transition);
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .admin-tabs-nav button:hover {
+            color: var(--primary);
+            background: #f1f3f5;
+        }
+        .admin-tabs-nav button.active {
+            color: var(--primary);
+            background: #e9ecef;
+            border-bottom: 3px solid var(--primary);
+        }
+        .admin-tab-pane {
+            display: none;
+            animation: fadeUp 0.3s ease;
+        }
+        .admin-tab-pane.active {
+            display: block;
+        }
+        .admin-form-group {
+            margin-bottom: 18px;
+        }
+        .admin-form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+            color: var(--gray-dark);
+        }
+        .admin-form-group label .required {
+            color: #e74c3c;
+        }
+        .admin-form-group input,
+        .admin-form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+            font-family: var(--font);
+            background: var(--white);
+        }
+        .admin-form-group input:focus,
+        .admin-form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(26, 58, 92, 0.08);
+        }
+        .admin-form-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        .admin-form-group .file-input-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+        .admin-form-group .file-input-wrapper input[type="file"] {
+            flex: 1;
+            padding: 8px;
+            border: 2px dashed #e9ecef;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #fafafa;
+        }
+        .admin-form-group .file-input-wrapper .preview {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 2px solid #e9ecef;
+            background: #f8f9fa;
+        }
+        .admin-form-group .helper {
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 4px;
+        }
+        .admin-form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        @media (max-width:600px) {
+            .admin-form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        .admin-item-list {
+            display: grid;
+            gap: 14px;
+            margin-top: 12px;
+        }
+        .admin-item-card {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid #e9ecef;
+            flex-wrap: wrap;
+            transition: var(--transition);
+        }
+        .admin-item-card:hover {
+            background: #f1f3f5;
+        }
+        .admin-item-card img {
+            width: 80px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid #dee2e6;
+            background: var(--white);
+        }
+        .admin-item-card .info {
+            flex: 1;
+            min-width: 120px;
+        }
+        .admin-item-card .info strong {
+            display: block;
+            font-size: 0.95rem;
+            color: var(--primary-dark);
+        }
+        .admin-item-card .info small {
+            color: #888;
+            font-size: 0.8rem;
+        }
+        .admin-item-card .actions {
+            display: flex;
+            gap: 8px;
+        }
+        #adminLogin {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 1100;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(6px);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        #adminLogin.open {
+            display: flex;
+        }
+        .login-box {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 40px 35px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s ease;
+        }
+        .login-box h2 {
+            text-align: center;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+        }
+        .login-box p {
+            text-align: center;
+            color: #888;
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+        }
+        .login-box .login-error {
+            color: #e74c3c;
+            text-align: center;
+            font-size: 0.9rem;
+            margin-top: 12px;
+            display: none;
+        }
+        .login-box .login-error.show {
+            display: block;
+        }
+        .toast-container {
+            position: fixed;
+            bottom: 80px;
+            right: 24px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .toast {
+            padding: 14px 24px;
+            border-radius: 10px;
+            color: var(--white);
+            font-weight: 500;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            animation: slideIn 0.3s ease;
+            max-width: 360px;
+        }
+        .toast-success {
+            background: #27ae60;
+        }
+        .toast-error {
+            background: #e74c3c;
+        }
+        .toast-info {
+            background: var(--primary);
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
         @media (max-width:768px) {
-            .client-header .container { flex-direction: column; align-items: flex-start; }
-            .client-nav { width:100%; justify-content:flex-start; gap:16px; }
-            .carousel-slide img { max-height:300px; }
-            .carousel-slide .slide-caption { padding:18px 20px 16px; }
-            .carousel-slide .slide-caption h3 { font-size:1.2rem; }
-            .carousel-btn { width:40px; height:40px; font-size:1rem; }
-            .carousel-btn.prev { left:10px; }
-            .carousel-btn.next { right:10px; }
-            .events-grid { grid-template-columns:1fr 1fr; }
-            .admin-card { padding:20px 16px; }
-            .admin-tabs-nav button { font-size:0.8rem; padding:8px 14px; }
-            .tabs .tab-btn { padding:8px 16px; font-size:0.85rem; }
-            #adminToggle { width:48px; height:48px; font-size:1.2rem; bottom:16px; right:16px; }
+            .client-header .container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .client-nav {
+                width: 100%;
+                justify-content: flex-start;
+                gap: 16px;
+            }
+            .carousel-slide img {
+                max-height: 300px;
+            }
+            .carousel-slide .slide-caption {
+                padding: 18px 20px 16px;
+            }
+            .carousel-slide .slide-caption h3 {
+                font-size: 1.2rem;
+            }
+            .carousel-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            .carousel-btn.prev {
+                left: 10px;
+            }
+            .carousel-btn.next {
+                right: 10px;
+            }
+            .events-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .admin-card {
+                padding: 20px 16px;
+            }
+            .admin-tabs-nav button {
+                font-size: 0.8rem;
+                padding: 8px 14px;
+            }
+            .tabs .tab-btn {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+            }
+            #adminToggle {
+                width: 48px;
+                height: 48px;
+                font-size: 1.2rem;
+                bottom: 16px;
+                right: 16px;
+            }
         }
         @media (max-width:480px) {
-            .events-grid { grid-template-columns:1fr; }
-            .client-brand h1 { font-size:1.1rem; }
-            .carousel-slide img { max-height:220px; }
-            .carousel-slide .slide-caption h3 { font-size:1rem; }
-            .carousel-slide .slide-caption p { font-size:0.85rem; }
-            .admin-item-card { flex-direction:column; align-items:stretch; text-align:center; }
-            .admin-item-card img { width:100%; height:auto; max-height:140px; }
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+            .client-brand h1 {
+                font-size: 1.1rem;
+            }
+            .carousel-slide img {
+                max-height: 220px;
+            }
+            .carousel-slide .slide-caption h3 {
+                font-size: 1rem;
+            }
+            .carousel-slide .slide-caption p {
+                font-size: 0.85rem;
+            }
+            .admin-item-card {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+            .admin-item-card img {
+                width: 100%;
+                height: auto;
+                max-height: 140px;
+            }
         }
-        .text-center { text-align:center; }
-        .mt-12 { margin-top:12px; }
-        .mt-20 { margin-top:20px; }
-        .flex { display:flex; }
-        .flex-wrap { flex-wrap:wrap; }
-        .gap-8 { gap:8px; }
-        hr { border:none; border-top:2px solid #e9ecef; margin:24px 0; }
+        .text-center {
+            text-align: center;
+        }
+        .mt-12 {
+            margin-top: 12px;
+        }
+        .mt-20 {
+            margin-top: 20px;
+        }
+        .flex {
+            display: flex;
+        }
+        .flex-wrap {
+            flex-wrap: wrap;
+        }
+        .gap-8 {
+            gap: 8px;
+        }
+        hr {
+            border: none;
+            border-top: 2px solid #e9ecef;
+            margin: 24px 0;
+        }
     </style>
 </head>
 <body>
@@ -221,8 +942,8 @@
     <!-- ===== TOAST ===== -->
     <div class="toast-container" id="toastContainer"></div>
 
-    <!-- ===== ADMIN TOGGLE ===== -->
-    <button id="adminToggle" onclick="toggleAdmin()">
+    <!-- ===== ADMIN TOGGLE (evento definido no JS) ===== -->
+    <button id="adminToggle">
         <i class="fas fa-cog"></i>
         <i class="fas fa-times"></i>
     </button>
@@ -252,13 +973,13 @@
         <div class="admin-card">
             <div class="admin-header">
                 <h2><i class="fas fa-cogs"></i> Painel de Controle</h2>
-                <button class="admin-close" onclick="toggleAdmin()"><i class="fas fa-times"></i></button>
+                <button class="admin-close" onclick="closeAdmin()"><i class="fas fa-times"></i></button>
             </div>
 
             <div class="admin-tabs-nav" id="adminTabsNav">
                 <button class="active" data-tab="tabEmpresa"><i class="fas fa-building"></i> Empresa</button>
                 <button data-tab="tabSobre"><i class="fas fa-info-circle"></i> Sobre</button>
-                <button data-tab="tabCarrossel"><i class="fas fa-images"></i> Destaques</button>
+                <button data-tab="tabCarrossel"><i class="fas fa-images"></i> Carrossel</button>
                 <button data-tab="tabEventos"><i class="fas fa-calendar-alt"></i> Eventos</button>
                 <button data-tab="tabSenha"><i class="fas fa-key"></i> Senha</button>
             </div>
@@ -373,7 +1094,7 @@
                 <div id="eventsAdminList" class="admin-item-list"></div>
             </div>
 
-            <!-- SENHA (mudar senha do usuário auth) -->
+            <!-- SENHA -->
             <div class="admin-tab-pane" id="tabSenha">
                 <form id="formSenha" onsubmit="changePassword(event)">
                     <div class="admin-form-group">
@@ -402,7 +1123,7 @@
                     <h1 id="clientCompanyName">Minha Empresa</h1>
                 </div>
                 <nav class="client-nav">
-                    <a href="#carrossel">Destaques</a>
+                    <a href="#carrossel">Carrossel</a>
                     <a href="#eventos">Eventos</a>
                     <a href="#sobre">Sobre</a>
                     <a href="#contato">Contato</a>
@@ -487,688 +1208,722 @@
     </div>
 
     <!-- ============================================================
-    JAVASCRIPT – INTEGRAÇÃO SUPABASE
+    JAVASCRIPT – CORRIGIDO
     ============================================================ -->
     <script>
-        // ============================================================
-        // 1. CONFIGURAÇÃO DO SUPABASE (substitua pelos seus dados)
-        // ============================================================
-        const SUPABASE_URL = 'https://vszmyzvquibzodwvgmax.supabase.co';
-        const SUPABASE_ANON_KEY = 'sb_publishable_Gzj9jz1Amnukk9PagEWPcg_wv91xDno';
+        (function() {
+            'use strict';
 
-        // Inicializa o cliente Supabase
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            // ============================================================
+            // 1. CONFIGURAÇÃO DO SUPABASE (substitua pelos seus dados)
+            // ============================================================
+            const SUPABASE_URL = 'https://vszmyzvquibzodwvgmax.supabase.co';
+            const SUPABASE_ANON_KEY = 'sb_publishable_Gzj9jz1Amnukk9PagEWPcg_wv91xDno';
 
-        // ============================================================
-        // 2. VARIÁVEIS GLOBAIS
-        // ============================================================
-        let currentUser = null;          // usuário logado
-        let carouselItems = [];
-        let currentSlide = 0;
-        let autoPlayInterval = null;
-
-        // ============================================================
-        // 3. HELPERS
-        // ============================================================
-        function toast(message, type = 'success') {
-            const container = document.getElementById('toastContainer');
-            const el = document.createElement('div');
-            el.className = `toast toast-${type}`;
-            el.textContent = message;
-            container.appendChild(el);
-            setTimeout(() => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateX(40px)';
-                setTimeout(() => el.remove(), 400);
-            }, 3500);
-        }
-
-        // Upload de imagem para o bucket 'images' do Supabase
-        async function uploadImage(file, path) {
-            const { data, error } = await supabase.storage
-                .from('images')
-                .upload(path, file, { upsert: true });
-            if (error) throw error;
-            // Pega a URL pública
-            const { data: urlData } = supabase.storage.from('images').getPublicUrl(path);
-            return urlData.publicUrl;
-        }
-
-        // ============================================================
-        // 4. AUTENTICAÇÃO
-        // ============================================================
-        async function handleLogin(e) {
-            e.preventDefault();
-            const email = document.getElementById('loginEmail').value.trim();
-            const password = document.getElementById('loginPassword').value.trim();
-
-            const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-            if (error) {
-                document.getElementById('loginError').classList.add('show');
-                toast('Erro ao logar: ' + error.message, 'error');
-                return;
+            // ============================================================
+            // 2. INICIALIZAÇÃO DO CLIENTE
+            // ============================================================
+            let supabaseClient = null;
+            try {
+                if (typeof supabase !== 'undefined' && supabase.createClient) {
+                    supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                } else {
+                    console.warn('SDK do Supabase não carregado. Verifique a conexão com a internet.');
+                }
+            } catch (e) {
+                console.error('Erro ao inicializar Supabase:', e);
             }
-            currentUser = data.user;
-            document.getElementById('loginError').classList.remove('show');
-            document.getElementById('adminLogin').classList.remove('open');
-            sessionStorage.setItem('adminAuth', 'true');
-            showAdminPanel();
-            toast('Bem-vindo, ' + (currentUser.email || 'Admin') + '!');
-        }
 
-        async function logout() {
-            await supabase.auth.signOut();
-            sessionStorage.removeItem('adminAuth');
-            currentUser = null;
-            closeAdmin();
-            toast('Desconectado.');
-        }
+            // ============================================================
+            // 3. VARIÁVEIS GLOBAIS
+            // ============================================================
+            let currentUser = null;
+            let carouselItems = [];
+            let currentSlide = 0;
+            let autoPlayInterval = null;
+            let isAdminOpen = false;
 
-        // Verifica se já está logado ao carregar a página
-        async function checkAuth() {
-            const { data } = await supabase.auth.getSession();
-            if (data.session) {
-                currentUser = data.session.user;
+            // ============================================================
+            // 4. HELPERS
+            // ============================================================
+            function toast(message, type = 'success') {
+                const container = document.getElementById('toastContainer');
+                if (!container) return;
+                const el = document.createElement('div');
+                el.className = `toast toast-${type}`;
+                el.textContent = message;
+                container.appendChild(el);
+                setTimeout(() => {
+                    el.style.opacity = '0';
+                    el.style.transform = 'translateX(40px)';
+                    setTimeout(() => el.remove(), 400);
+                }, 3500);
+            }
+
+            async function uploadImage(file, path) {
+                if (!supabaseClient) throw new Error('Supabase não inicializado.');
+                const { data, error } = await supabaseClient.storage
+                    .from('images')
+                    .upload(path, file, { upsert: true });
+                if (error) throw error;
+                const { data: urlData } = supabaseClient.storage.from('images').getPublicUrl(path);
+                return urlData.publicUrl;
+            }
+
+            // ============================================================
+            // 5. AUTENTICAÇÃO
+            // ============================================================
+            async function handleLogin(e) {
+                e.preventDefault();
+                if (!supabaseClient) {
+                    toast('Supabase não disponível. Verifique sua conexão.', 'error');
+                    return;
+                }
+                const email = document.getElementById('loginEmail').value.trim();
+                const password = document.getElementById('loginPassword').value.trim();
+
+                const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+                if (error) {
+                    document.getElementById('loginError').classList.add('show');
+                    toast('Erro ao logar: ' + error.message, 'error');
+                    return;
+                }
+                currentUser = data.user;
+                document.getElementById('loginError').classList.remove('show');
+                document.getElementById('adminLogin').classList.remove('open');
                 sessionStorage.setItem('adminAuth', 'true');
+                showAdminPanel();
+                toast('Bem-vindo, ' + (currentUser.email || 'Admin') + '!');
             }
-            // Se houver sessão e o admin estiver aberto, mostra o painel
-            if (sessionStorage.getItem('adminAuth') === 'true' && currentUser) {
-                // apenas mantém, não abre automaticamente
+
+            async function logout() {
+                if (supabaseClient) await supabaseClient.auth.signOut();
+                sessionStorage.removeItem('adminAuth');
+                currentUser = null;
+                closeAdmin();
+                toast('Desconectado.');
             }
-        }
 
-        // ============================================================
-        // 5. CRUD – EMPRESA (config)
-        // ============================================================
-        // Usaremos uma tabela 'config' com uma única linha (id = 1)
-        async function loadCompany() {
-            const { data, error } = await supabase
-                .from('config')
-                .select('*')
-                .eq('id', 1)
-                .single();
-            if (error && error.code !== 'PGRST116') {
-                console.error('Erro ao carregar empresa:', error);
-                return null;
+            async function checkAuth() {
+                if (!supabaseClient) return;
+                const { data } = await supabaseClient.auth.getSession();
+                if (data.session) {
+                    currentUser = data.session.user;
+                    sessionStorage.setItem('adminAuth', 'true');
+                }
             }
-            return data;
-        }
 
-        async function saveCompany(e) {
-            e.preventDefault();
-            if (!currentUser) { toast('Faça login primeiro.', 'error'); return; }
+            // ============================================================
+            // 6. CRUD – EMPRESA
+            // ============================================================
+            async function loadCompany() {
+                if (!supabaseClient) return null;
+                const { data, error } = await supabaseClient
+                    .from('config')
+                    .select('*')
+                    .eq('id', 1)
+                    .single();
+                if (error && error.code !== 'PGRST116') {
+                    console.error('Erro ao carregar empresa:', error);
+                    return null;
+                }
+                return data;
+            }
 
-            const name = document.getElementById('companyName').value.trim();
-            const email = document.getElementById('companyEmail').value.trim();
-            const contact = document.getElementById('companyContact').value.trim();
-            const address = document.getElementById('companyAddress').value.trim();
+            async function saveCompany(e) {
+                e.preventDefault();
+                if (!currentUser) { toast('Faça login primeiro.', 'error'); return; }
+                if (!supabaseClient) { toast('Supabase não disponível.', 'error'); return; }
 
-            let logo = null;
-            const fileInput = document.getElementById('logoInput');
-            if (fileInput.files && fileInput.files[0]) {
+                const name = document.getElementById('companyName').value.trim();
+                const email = document.getElementById('companyEmail').value.trim();
+                const contact = document.getElementById('companyContact').value.trim();
+                const address = document.getElementById('companyAddress').value.trim();
+
+                let logo = null;
+                const fileInput = document.getElementById('logoInput');
+                if (fileInput.files && fileInput.files[0]) {
+                    try {
+                        const file = fileInput.files[0];
+                        const ext = file.name.split('.').pop();
+                        const path = `logo.${ext}`;
+                        logo = await uploadImage(file, path);
+                    } catch (err) {
+                        toast('Erro ao fazer upload da logo.', 'error');
+                        return;
+                    }
+                }
+
+                const payload = { name, email, contact, address };
+                if (logo) payload.logo = logo;
+
+                const existing = await loadCompany();
+                let result;
+                if (existing) {
+                    result = await supabaseClient.from('config').update(payload).eq('id', 1);
+                } else {
+                    result = await supabaseClient.from('config').insert({ id: 1, ...payload });
+                }
+
+                if (result.error) {
+                    toast('Erro ao salvar empresa: ' + result.error.message, 'error');
+                } else {
+                    toast('Empresa salva com sucesso!');
+                    renderClient();
+                    loadAdminForms();
+                }
+            }
+
+            // ============================================================
+            // 7. CRUD – SOBRE
+            // ============================================================
+            async function loadAbout() {
+                if (!supabaseClient) return null;
+                const { data, error } = await supabaseClient
+                    .from('about')
+                    .select('*')
+                    .eq('id', 1)
+                    .single();
+                if (error && error.code !== 'PGRST116') {
+                    console.error('Erro ao carregar about:', error);
+                    return null;
+                }
+                return data;
+            }
+
+            async function saveAbout(e) {
+                e.preventDefault();
+                if (!currentUser) { toast('Faça login primeiro.', 'error'); return; }
+                if (!supabaseClient) { toast('Supabase não disponível.', 'error'); return; }
+
+                const who = document.getElementById('aboutWho').value.trim();
+                const mission = document.getElementById('aboutMission').value.trim();
+                const vision = document.getElementById('aboutVision').value.trim();
+                const values = document.getElementById('aboutValues').value.trim();
+
+                const payload = { who, mission, vision, values };
+
+                const existing = await loadAbout();
+                let result;
+                if (existing) {
+                    result = await supabaseClient.from('about').update(payload).eq('id', 1);
+                } else {
+                    result = await supabaseClient.from('about').insert({ id: 1, ...payload });
+                }
+
+                if (result.error) {
+                    toast('Erro ao salvar sobre: ' + result.error.message, 'error');
+                } else {
+                    toast('Conteúdo "Sobre" salvo!');
+                    renderClient();
+                }
+            }
+
+            // ============================================================
+            // 8. CRUD – CARROSSEL
+            // ============================================================
+            async function loadCarousel() {
+                if (!supabaseClient) return [];
+                const { data, error } = await supabaseClient
+                    .from('carousel')
+                    .select('*')
+                    .order('created_at', { ascending: true });
+                if (error) {
+                    console.error('Erro ao carregar carrossel:', error);
+                    return [];
+                }
+                return data;
+            }
+
+            async function addCarouselItem(e) {
+                e.preventDefault();
+                if (!currentUser) { toast('Faça login primeiro.', 'error'); return; }
+                if (!supabaseClient) { toast('Supabase não disponível.', 'error'); return; }
+
+                const title = document.getElementById('slideTitle').value.trim();
+                const description = document.getElementById('slideDesc').value.trim();
+                const fileInput = document.getElementById('slideImage');
+
+                if (!title) { toast('Título obrigatório.', 'error'); return; }
+                if (!fileInput.files || !fileInput.files[0]) { toast('Selecione uma imagem.', 'error'); return; }
+
                 try {
                     const file = fileInput.files[0];
                     const ext = file.name.split('.').pop();
-                    const path = `logo.${ext}`;
-                    logo = await uploadImage(file, path);
+                    const path = `carousel/${Date.now()}.${ext}`;
+                    const image = await uploadImage(file, path);
+
+                    const { error } = await supabaseClient
+                        .from('carousel')
+                        .insert([{ title, description, image }]);
+
+                    if (error) throw error;
+                    toast('Slide adicionado!');
+                    document.getElementById('formCarrossel').reset();
+                    await renderClient();
+                    await loadAdminForms();
+                    startAutoPlay();
                 } catch (err) {
-                    toast('Erro ao fazer upload da logo.', 'error');
+                    toast('Erro ao adicionar slide: ' + err.message, 'error');
+                }
+            }
+
+            async function deleteCarouselItem(id) {
+                if (!confirm('Remover este slide?')) return;
+                if (!currentUser) { toast('Faça login.', 'error'); return; }
+                if (!supabaseClient) { toast('Supabase não disponível.', 'error'); return; }
+
+                const { error } = await supabaseClient
+                    .from('carousel')
+                    .delete()
+                    .eq('id', id);
+                if (error) {
+                    toast('Erro ao remover: ' + error.message, 'error');
+                } else {
+                    toast('Slide removido.');
+                    await renderClient();
+                    await loadAdminForms();
+                    startAutoPlay();
+                }
+            }
+
+            // ============================================================
+            // 9. CRUD – EVENTOS
+            // ============================================================
+            async function loadEvents() {
+                if (!supabaseClient) return [];
+                const { data, error } = await supabaseClient
+                    .from('events')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+                if (error) {
+                    console.error('Erro ao carregar eventos:', error);
+                    return [];
+                }
+                return data;
+            }
+
+            async function addEvent(e) {
+                e.preventDefault();
+                if (!currentUser) { toast('Faça login primeiro.', 'error'); return; }
+                if (!supabaseClient) { toast('Supabase não disponível.', 'error'); return; }
+
+                const title = document.getElementById('eventTitle').value.trim();
+                const description = document.getElementById('eventDesc').value.trim();
+                const date = document.getElementById('eventDate').value.trim();
+                const fileInput = document.getElementById('eventImage');
+
+                if (!title) { toast('Título obrigatório.', 'error'); return; }
+                if (!description) { toast('Descrição obrigatória.', 'error'); return; }
+                if (!fileInput.files || !fileInput.files[0]) { toast('Selecione uma imagem.', 'error'); return; }
+
+                try {
+                    const file = fileInput.files[0];
+                    const ext = file.name.split('.').pop();
+                    const path = `events/${Date.now()}.${ext}`;
+                    const image = await uploadImage(file, path);
+
+                    const { error } = await supabaseClient
+                        .from('events')
+                        .insert([{ title, description, image, date }]);
+
+                    if (error) throw error;
+                    toast('Evento adicionado!');
+                    document.getElementById('formEvento').reset();
+                    await renderClient();
+                    await loadAdminForms();
+                } catch (err) {
+                    toast('Erro ao adicionar evento: ' + err.message, 'error');
+                }
+            }
+
+            async function deleteEvent(id) {
+                if (!confirm('Remover este evento?')) return;
+                if (!currentUser) { toast('Faça login.', 'error'); return; }
+                if (!supabaseClient) { toast('Supabase não disponível.', 'error'); return; }
+
+                const { error } = await supabaseClient
+                    .from('events')
+                    .delete()
+                    .eq('id', id);
+                if (error) {
+                    toast('Erro ao remover: ' + error.message, 'error');
+                } else {
+                    toast('Evento removido.');
+                    await renderClient();
+                    await loadAdminForms();
+                }
+            }
+
+            // ============================================================
+            // 10. RENDER CLIENT
+            // ============================================================
+            async function renderClient() {
+                const company = await loadCompany();
+                const about = await loadAbout();
+                const carousel = await loadCarousel();
+                const events = await loadEvents();
+
+                if (company) {
+                    document.getElementById('clientCompanyName').textContent = company.name || 'Minha Empresa';
+                    const logoImg = document.getElementById('clientLogoImg');
+                    const placeholder = document.getElementById('clientLogoPlaceholder');
+                    if (company.logo) {
+                        logoImg.src = company.logo;
+                        logoImg.style.display = 'block';
+                        placeholder.style.display = 'none';
+                    } else {
+                        logoImg.style.display = 'none';
+                        placeholder.style.display = 'flex';
+                        placeholder.textContent = (company.name || 'M')[0].toUpperCase();
+                    }
+                    document.getElementById('footerName').textContent = company.name || 'Minha Empresa';
+                    document.getElementById('footerAddress').textContent = company.address || 'Endereço não definido';
+                    document.getElementById('footerContact').textContent = company.contact || 'Telefone não definido';
+                    document.getElementById('footerEmail').textContent = company.email || 'E-mail não definido';
+                }
+
+                if (about) {
+                    document.getElementById('displayWho').textContent = about.who || '...';
+                    document.getElementById('displayMission').textContent = about.mission || '...';
+                    document.getElementById('displayVision').textContent = about.vision || '...';
+                    document.getElementById('displayValues').textContent = about.values || '...';
+                }
+
+                renderCarousel(carousel);
+                renderEvents(events);
+                document.getElementById('footerYear').textContent = new Date().getFullYear();
+            }
+
+            // ============================================================
+            // 11. CARROSSEL
+            // ============================================================
+            function renderCarousel(items) {
+                carouselItems = items || [];
+                const track = document.getElementById('carouselTrack');
+                const dots = document.getElementById('carouselDots');
+
+                if (!carouselItems.length) {
+                    track.innerHTML = `
+                        <div class="carousel-slide">
+                            <div class="carousel-empty">
+                                <i class="fas fa-images"></i>
+                                <p>Nenhuma imagem no carrossel. Adicione pelo painel admin.</p>
+                            </div>
+                        </div>
+                    `;
+                    dots.innerHTML = '';
+                    currentSlide = 0;
                     return;
                 }
+
+                track.innerHTML = carouselItems.map((item) => `
+                        <div class="carousel-slide">
+                            <img src="${item.image}" alt="${item.title || 'Slide'}" />
+                            <div class="slide-caption">
+                                <h3>${item.title || ''}</h3>
+                                <p>${item.description || ''}</p>
+                            </div>
+                        </div>
+                    `).join('');
+
+                dots.innerHTML = carouselItems.map((_, idx) => `
+                        <span class="${idx === 0 ? 'active' : ''}" onclick="goToSlide(${idx})"></span>
+                    `).join('');
+
+                currentSlide = 0;
+                updateCarousel();
             }
 
-            const payload = { name, email, contact, address };
-            if (logo) payload.logo = logo;
-
-            // Verifica se já existe registro
-            const existing = await loadCompany();
-            let result;
-            if (existing) {
-                result = await supabase.from('config').update(payload).eq('id', 1);
-            } else {
-                result = await supabase.from('config').insert({ id: 1, ...payload });
+            function updateCarousel() {
+                const track = document.getElementById('carouselTrack');
+                const dots = document.querySelectorAll('#carouselDots span');
+                const total = carouselItems.length;
+                if (!total) return;
+                if (currentSlide < 0) currentSlide = total - 1;
+                if (currentSlide >= total) currentSlide = 0;
+                track.style.transform = `translateX(-${currentSlide * 100}%)`;
+                dots.forEach((dot, idx) => {
+                    dot.classList.toggle('active', idx === currentSlide);
+                });
             }
 
-            if (result.error) {
-                toast('Erro ao salvar empresa: ' + result.error.message, 'error');
-            } else {
-                toast('Empresa salva com sucesso!');
-                renderClient();
+            function moveCarousel(dir) {
+                if (!carouselItems.length) return;
+                currentSlide += dir;
+                updateCarousel();
+            }
+
+            function goToSlide(idx) {
+                if (idx < 0 || idx >= carouselItems.length) return;
+                currentSlide = idx;
+                updateCarousel();
+            }
+
+            function startAutoPlay() {
+                stopAutoPlay();
+                autoPlayInterval = setInterval(() => {
+                    if (carouselItems.length > 0) {
+                        currentSlide++;
+                        updateCarousel();
+                    }
+                }, 5000);
+            }
+
+            function stopAutoPlay() {
+                if (autoPlayInterval) {
+                    clearInterval(autoPlayInterval);
+                    autoPlayInterval = null;
+                }
+            }
+
+            // ============================================================
+            // 12. EVENTOS (cliente)
+            // ============================================================
+            function renderEvents(events) {
+                const grid = document.getElementById('eventsGrid');
+                if (!events || events.length === 0) {
+                    grid.innerHTML = `
+                        <div class="events-empty">
+                            <i class="fas fa-calendar-plus"></i>
+                            <p>Nenhum evento cadastrado ainda.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                grid.innerHTML = events.map(ev => `
+                        <div class="event-card">
+                            <img class="event-image" src="${ev.image}" alt="${ev.title}" />
+                            <div class="event-body">
+                                <h3>${ev.title}</h3>
+                                <p>${ev.description}</p>
+                                ${ev.date ? `<div class="event-date"><i class="fas fa-calendar-alt"></i> ${ev.date}</div>` : ''}
+                            </div>
+                        </div>
+                    `).join('');
+            }
+
+            // ============================================================
+            // 13. ADMIN FORMS
+            // ============================================================
+            async function loadAdminForms() {
+                const company = await loadCompany();
+                const about = await loadAbout();
+                const carousel = await loadCarousel();
+                const events = await loadEvents();
+
+                if (company) {
+                    document.getElementById('companyName').value = company.name || '';
+                    document.getElementById('companyEmail').value = company.email || '';
+                    document.getElementById('companyContact').value = company.contact || '';
+                    document.getElementById('companyAddress').value = company.address || '';
+                    const preview = document.getElementById('logoPreview');
+                    if (company.logo) {
+                        preview.src = company.logo;
+                        preview.style.display = 'block';
+                    } else {
+                        preview.style.display = 'none';
+                    }
+                }
+
+                if (about) {
+                    document.getElementById('aboutWho').value = about.who || '';
+                    document.getElementById('aboutMission').value = about.mission || '';
+                    document.getElementById('aboutVision').value = about.vision || '';
+                    document.getElementById('aboutValues').value = about.values || '';
+                }
+
+                renderAdminCarouselList(carousel);
+                renderAdminEventsList(events);
+            }
+
+            function renderAdminCarouselList(items) {
+                const container = document.getElementById('carouselAdminList');
+                if (!items || items.length === 0) {
+                    container.innerHTML = `<p style="color:#999;padding:8px 0;">Nenhum slide.</p>`;
+                    return;
+                }
+                container.innerHTML = items.map(item => `
+                        <div class="admin-item-card">
+                            <img src="${item.image}" alt="${item.title}" />
+                            <div class="info">
+                                <strong>${item.title || 'Sem título'}</strong>
+                                <small>${item.description || ''}</small>
+                            </div>
+                            <div class="actions">
+                                <button class="btn btn-danger btn-sm" onclick="deleteCarouselItem('${item.id}')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `).join('');
+            }
+
+            function renderAdminEventsList(items) {
+                const container = document.getElementById('eventsAdminList');
+                if (!items || items.length === 0) {
+                    container.innerHTML = `<p style="color:#999;padding:8px 0;">Nenhum evento.</p>`;
+                    return;
+                }
+                container.innerHTML = items.map(ev => `
+                        <div class="admin-item-card">
+                            <img src="${ev.image}" alt="${ev.title}" />
+                            <div class="info">
+                                <strong>${ev.title}</strong>
+                                <small>${ev.date || 'Sem data'} · ${ev.description.substring(0, 60)}${ev.description.length > 60 ? '…' : ''}</small>
+                            </div>
+                            <div class="actions">
+                                <button class="btn btn-danger btn-sm" onclick="deleteEvent('${ev.id}')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `).join('');
+            }
+
+            // ============================================================
+            // 14. MUDAR SENHA (via Supabase Auth)
+            // ============================================================
+            async function changePassword(e) {
+                e.preventDefault();
+                if (!currentUser) { toast('Faça login primeiro.', 'error'); return; }
+                if (!supabaseClient) { toast('Supabase não disponível.', 'error'); return; }
+
+                const newPass = document.getElementById('newPassword').value;
+                const confirmPass = document.getElementById('confirmPassword').value;
+                if (newPass.length < 6) { toast('Mínimo 6 caracteres.', 'error'); return; }
+                if (newPass !== confirmPass) { toast('Senhas não conferem.', 'error'); return; }
+
+                const { error } = await supabaseClient.auth.updateUser({ password: newPass });
+                if (error) {
+                    toast('Erro ao alterar senha: ' + error.message, 'error');
+                } else {
+                    toast('Senha alterada com sucesso!');
+                    document.getElementById('formSenha').reset();
+                }
+            }
+
+            // ============================================================
+            // 15. ADMIN TOGGLE / ABRIR/FECHAR
+            // ============================================================
+            function toggleAdmin() {
+                if (isAdminOpen) {
+                    closeAdmin();
+                } else {
+                    openAdmin();
+                }
+            }
+
+            function openAdmin() {
+                if (currentUser) {
+                    showAdminPanel();
+                    return;
+                }
+                document.getElementById('adminLogin').classList.add('open');
+                document.getElementById('loginError').classList.remove('show');
+                document.getElementById('loginEmail').value = '';
+                document.getElementById('loginPassword').value = '';
+                document.getElementById('loginEmail').focus();
+            }
+
+            function closeAdmin() {
+                document.getElementById('adminPanel').classList.remove('open');
+                document.getElementById('adminToggle').classList.remove('active');
+                isAdminOpen = false;
+            }
+
+            function showAdminPanel() {
+                document.getElementById('adminLogin').classList.remove('open');
+                document.getElementById('adminPanel').classList.add('open');
+                document.getElementById('adminToggle').classList.add('active');
+                isAdminOpen = true;
                 loadAdminForms();
             }
-        }
 
-        // ============================================================
-        // 6. CRUD – SOBRE (about)
-        // ============================================================
-        async function loadAbout() {
-            const { data, error } = await supabase
-                .from('about')
-                .select('*')
-                .eq('id', 1)
-                .single();
-            if (error && error.code !== 'PGRST116') {
-                console.error('Erro ao carregar about:', error);
-                return null;
-            }
-            return data;
-        }
+            // ============================================================
+            // 16. EVENTOS DE DOM E INICIALIZAÇÃO
+            // ============================================================
+            document.addEventListener('DOMContentLoaded', async function() {
+                // Associa o evento do toggle
+                document.getElementById('adminToggle').addEventListener('click', toggleAdmin);
 
-        async function saveAbout(e) {
-            e.preventDefault();
-            if (!currentUser) { toast('Faça login primeiro.', 'error'); return; }
+                // Fechar admin ao clicar no backdrop
+                document.getElementById('adminPanel').addEventListener('click', function(e) {
+                    if (e.target === this) closeAdmin();
+                });
 
-            const who = document.getElementById('aboutWho').value.trim();
-            const mission = document.getElementById('aboutMission').value.trim();
-            const vision = document.getElementById('aboutVision').value.trim();
-            const values = document.getElementById('aboutValues').value.trim();
+                // Abas do admin
+                document.querySelectorAll('#adminTabsNav button').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        document.querySelectorAll('#adminTabsNav button').forEach(b => b.classList.remove(
+                        'active'));
+                        this.classList.add('active');
+                        const target = this.dataset.tab;
+                        document.querySelectorAll('.admin-tab-pane').forEach(p => p.classList.remove('active'));
+                        document.getElementById(target).classList.add('active');
+                    });
+                });
 
-            const payload = { who, mission, vision, values };
+                // Abas do cliente (Sobre)
+                document.querySelectorAll('#aboutTabs .tab-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        document.querySelectorAll('#aboutTabs .tab-btn').forEach(b => b.classList.remove(
+                        'active'));
+                        this.classList.add('active');
+                        const target = this.dataset.tab;
+                        document.querySelectorAll('#aboutContent .tab-content').forEach(c => c.classList.remove(
+                            'active'));
+                        document.getElementById(target).classList.add('active');
+                    });
+                });
 
-            const existing = await loadAbout();
-            let result;
-            if (existing) {
-                result = await supabase.from('about').update(payload).eq('id', 1);
-            } else {
-                result = await supabase.from('about').insert({ id: 1, ...payload });
-            }
+                // Preview da logo
+                document.getElementById('logoInput').addEventListener('change', function(e) {
+                    const file = this.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(ev) {
+                            const preview = document.getElementById('logoPreview');
+                            preview.src = ev.target.result;
+                            preview.style.display = 'block';
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
 
-            if (result.error) {
-                toast('Erro ao salvar sobre: ' + result.error.message, 'error');
-            } else {
-                toast('Conteúdo "Sobre" salvo!');
-                renderClient();
-            }
-        }
-
-        // ============================================================
-        // 7. CRUD – CARROSSEL
-        // ============================================================
-        async function loadCarousel() {
-            const { data, error } = await supabase
-                .from('carousel')
-                .select('*')
-                .order('created_at', { ascending: true });
-            if (error) {
-                console.error('Erro ao carregar carrossel:', error);
-                return [];
-            }
-            return data;
-        }
-
-        async function addCarouselItem(e) {
-            e.preventDefault();
-            if (!currentUser) { toast('Faça login primeiro.', 'error'); return; }
-
-            const title = document.getElementById('slideTitle').value.trim();
-            const description = document.getElementById('slideDesc').value.trim();
-            const fileInput = document.getElementById('slideImage');
-
-            if (!title) { toast('Título obrigatório.', 'error'); return; }
-            if (!fileInput.files || !fileInput.files[0]) { toast('Selecione uma imagem.', 'error'); return; }
-
-            try {
-                const file = fileInput.files[0];
-                const ext = file.name.split('.').pop();
-                const path = `carousel/${Date.now()}.${ext}`;
-                const image = await uploadImage(file, path);
-
-                const { error } = await supabase
-                    .from('carousel')
-                    .insert([{ title, description, image }]);
-
-                if (error) throw error;
-                toast('Slide adicionado!');
-                document.getElementById('formCarrossel').reset();
+                // Inicialização
+                await checkAuth();
                 await renderClient();
-                await loadAdminForms();
                 startAutoPlay();
-            } catch (err) {
-                toast('Erro ao adicionar slide: ' + err.message, 'error');
-            }
-        }
 
-        async function deleteCarouselItem(id) {
-            if (!confirm('Remover este slide?')) return;
-            if (!currentUser) { toast('Faça login.', 'error'); return; }
-
-            // Buscar a imagem para deletar do storage (opcional)
-            const { data, error } = await supabase
-                .from('carousel')
-                .delete()
-                .eq('id', id);
-            if (error) {
-                toast('Erro ao remover: ' + error.message, 'error');
-            } else {
-                toast('Slide removido.');
-                await renderClient();
-                await loadAdminForms();
-                startAutoPlay();
-            }
-        }
-
-        // ============================================================
-        // 8. CRUD – EVENTOS
-        // ============================================================
-        async function loadEvents() {
-            const { data, error } = await supabase
-                .from('events')
-                .select('*')
-                .order('created_at', { ascending: false });
-            if (error) {
-                console.error('Erro ao carregar eventos:', error);
-                return [];
-            }
-            return data;
-        }
-
-        async function addEvent(e) {
-            e.preventDefault();
-            if (!currentUser) { toast('Faça login primeiro.', 'error'); return; }
-
-            const title = document.getElementById('eventTitle').value.trim();
-            const description = document.getElementById('eventDesc').value.trim();
-            const date = document.getElementById('eventDate').value.trim();
-            const fileInput = document.getElementById('eventImage');
-
-            if (!title) { toast('Título obrigatório.', 'error'); return; }
-            if (!description) { toast('Descrição obrigatória.', 'error'); return; }
-            if (!fileInput.files || !fileInput.files[0]) { toast('Selecione uma imagem.', 'error'); return; }
-
-            try {
-                const file = fileInput.files[0];
-                const ext = file.name.split('.').pop();
-                const path = `events/${Date.now()}.${ext}`;
-                const image = await uploadImage(file, path);
-
-                const { error } = await supabase
-                    .from('events')
-                    .insert([{ title, description, image, date }]);
-
-                if (error) throw error;
-                toast('Evento adicionado!');
-                document.getElementById('formEvento').reset();
-                await renderClient();
-                await loadAdminForms();
-            } catch (err) {
-                toast('Erro ao adicionar evento: ' + err.message, 'error');
-            }
-        }
-
-        async function deleteEvent(id) {
-            if (!confirm('Remover este evento?')) return;
-            if (!currentUser) { toast('Faça login.', 'error'); return; }
-
-            const { error } = await supabase
-                .from('events')
-                .delete()
-                .eq('id', id);
-            if (error) {
-                toast('Erro ao remover: ' + error.message, 'error');
-            } else {
-                toast('Evento removido.');
-                await renderClient();
-                await loadAdminForms();
-            }
-        }
-
-        // ============================================================
-        // 9. RENDER CLIENT
-        // ============================================================
-        async function renderClient() {
-            // Carrega dados
-            const company = await loadCompany();
-            const about = await loadAbout();
-            const carousel = await loadCarousel();
-            const events = await loadEvents();
-
-            // Empresa
-            if (company) {
-                document.getElementById('clientCompanyName').textContent = company.name || 'Minha Empresa';
-                const logoImg = document.getElementById('clientLogoImg');
-                const placeholder = document.getElementById('clientLogoPlaceholder');
-                if (company.logo) {
-                    logoImg.src = company.logo;
-                    logoImg.style.display = 'block';
-                    placeholder.style.display = 'none';
-                } else {
-                    logoImg.style.display = 'none';
-                    placeholder.style.display = 'flex';
-                    placeholder.textContent = (company.name || 'M')[0].toUpperCase();
+                if (currentUser) {
+                    await loadAdminForms();
                 }
-                document.getElementById('footerName').textContent = company.name || 'Minha Empresa';
-                document.getElementById('footerAddress').textContent = company.address || 'Endereço não definido';
-                document.getElementById('footerContact').textContent = company.contact || 'Telefone não definido';
-                document.getElementById('footerEmail').textContent = company.email || 'E-mail não definido';
-            }
 
-            // About
-            if (about) {
-                document.getElementById('displayWho').textContent = about.who || '...';
-                document.getElementById('displayMission').textContent = about.mission || '...';
-                document.getElementById('displayVision').textContent = about.vision || '...';
-                document.getElementById('displayValues').textContent = about.values || '...';
-            }
-
-            // Carousel
-            renderCarousel(carousel);
-
-            // Events
-            renderEvents(events);
-
-            document.getElementById('footerYear').textContent = new Date().getFullYear();
-        }
-
-        // ============================================================
-        // 10. CARROSSEL RENDER
-        // ============================================================
-        function renderCarousel(items) {
-            carouselItems = items || [];
-            const track = document.getElementById('carouselTrack');
-            const dots = document.getElementById('carouselDots');
-
-            if (!carouselItems.length) {
-                track.innerHTML = `
-                    <div class="carousel-slide">
-                        <div class="carousel-empty">
-                            <i class="fas fa-images"></i>
-                            <p>Nenhuma imagem no carrossel. Adicione pelo painel admin.</p>
-                        </div>
-                    </div>
-                `;
-                dots.innerHTML = '';
-                currentSlide = 0;
-                return;
-            }
-
-            track.innerHTML = carouselItems.map((item) => `
-                    <div class="carousel-slide">
-                        <img src="${item.image}" alt="${item.title || 'Slide'}" />
-                        <div class="slide-caption">
-                            <h3>${item.title || ''}</h3>
-                            <p>${item.description || ''}</p>
-                        </div>
-                    </div>
-                `).join('');
-
-            dots.innerHTML = carouselItems.map((_, idx) => `
-                    <span class="${idx === 0 ? 'active' : ''}" onclick="goToSlide(${idx})"></span>
-                `).join('');
-
-            currentSlide = 0;
-            updateCarousel();
-        }
-
-        function updateCarousel() {
-            const track = document.getElementById('carouselTrack');
-            const dots = document.querySelectorAll('#carouselDots span');
-            const total = carouselItems.length;
-            if (!total) return;
-            if (currentSlide < 0) currentSlide = total - 1;
-            if (currentSlide >= total) currentSlide = 0;
-            track.style.transform = `translateX(-${currentSlide * 100}%)`;
-            dots.forEach((dot, idx) => {
-                dot.classList.toggle('active', idx === currentSlide);
+                // Fechar com ESC
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && isAdminOpen) closeAdmin();
+                });
             });
-        }
 
-        function moveCarousel(dir) {
-            if (!carouselItems.length) return;
-            currentSlide += dir;
-            updateCarousel();
-        }
+            // ============================================================
+            // 17. EXPOR FUNÇÕES GLOBAIS (para onclick no HTML)
+            // ============================================================
+            window.toggleAdmin = toggleAdmin;
+            window.closeAdmin = closeAdmin;
+            window.handleLogin = handleLogin;
+            window.saveCompany = saveCompany;
+            window.saveAbout = saveAbout;
+            window.addCarouselItem = addCarouselItem;
+            window.deleteCarouselItem = deleteCarouselItem;
+            window.addEvent = addEvent;
+            window.deleteEvent = deleteEvent;
+            window.changePassword = changePassword;
+            window.moveCarousel = moveCarousel;
+            window.goToSlide = goToSlide;
 
-        function goToSlide(idx) {
-            if (idx < 0 || idx >= carouselItems.length) return;
-            currentSlide = idx;
-            updateCarousel();
-        }
-
-        function startAutoPlay() {
-            stopAutoPlay();
-            autoPlayInterval = setInterval(() => {
-                if (carouselItems.length > 0) {
-                    currentSlide++;
-                    updateCarousel();
-                }
-            }, 5000);
-        }
-
-        function stopAutoPlay() {
-            if (autoPlayInterval) {
-                clearInterval(autoPlayInterval);
-                autoPlayInterval = null;
-            }
-        }
-
-        // ============================================================
-        // 11. EVENTOS (cliente)
-        // ============================================================
-        function renderEvents(events) {
-            const grid = document.getElementById('eventsGrid');
-            if (!events || events.length === 0) {
-                grid.innerHTML = `
-                    <div class="events-empty">
-                        <i class="fas fa-calendar-plus"></i>
-                        <p>Nenhum evento cadastrado ainda.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            grid.innerHTML = events.map(ev => `
-                    <div class="event-card">
-                        <img class="event-image" src="${ev.image}" alt="${ev.title}" />
-                        <div class="event-body">
-                            <h3>${ev.title}</h3>
-                            <p>${ev.description}</p>
-                            ${ev.date ? `<div class="event-date"><i class="fas fa-calendar-alt"></i> ${ev.date}</div>` : ''}
-                        </div>
-                    </div>
-                `).join('');
-        }
-
-        // ============================================================
-        // 12. ADMIN: LOAD FORMS
-        // ============================================================
-        async function loadAdminForms() {
-            const company = await loadCompany();
-            const about = await loadAbout();
-            const carousel = await loadCarousel();
-            const events = await loadEvents();
-
-            if (company) {
-                document.getElementById('companyName').value = company.name || '';
-                document.getElementById('companyEmail').value = company.email || '';
-                document.getElementById('companyContact').value = company.contact || '';
-                document.getElementById('companyAddress').value = company.address || '';
-                const preview = document.getElementById('logoPreview');
-                if (company.logo) {
-                    preview.src = company.logo;
-                    preview.style.display = 'block';
-                } else {
-                    preview.style.display = 'none';
-                }
-            }
-
-            if (about) {
-                document.getElementById('aboutWho').value = about.who || '';
-                document.getElementById('aboutMission').value = about.mission || '';
-                document.getElementById('aboutVision').value = about.vision || '';
-                document.getElementById('aboutValues').value = about.values || '';
-            }
-
-            renderAdminCarouselList(carousel);
-            renderAdminEventsList(events);
-        }
-
-        function renderAdminCarouselList(items) {
-            const container = document.getElementById('carouselAdminList');
-            if (!items || items.length === 0) {
-                container.innerHTML = `<p style="color:#999;padding:8px 0;">Nenhum slide.</p>`;
-                return;
-            }
-            container.innerHTML = items.map(item => `
-                    <div class="admin-item-card">
-                        <img src="${item.image}" alt="${item.title}" />
-                        <div class="info">
-                            <strong>${item.title || 'Sem título'}</strong>
-                            <small>${item.description || ''}</small>
-                        </div>
-                        <div class="actions">
-                            <button class="btn btn-danger btn-sm" onclick="deleteCarouselItem('${item.id}')">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                `).join('');
-        }
-
-        function renderAdminEventsList(items) {
-            const container = document.getElementById('eventsAdminList');
-            if (!items || items.length === 0) {
-                container.innerHTML = `<p style="color:#999;padding:8px 0;">Nenhum evento.</p>`;
-                return;
-            }
-            container.innerHTML = items.map(ev => `
-                    <div class="admin-item-card">
-                        <img src="${ev.image}" alt="${ev.title}" />
-                        <div class="info">
-                            <strong>${ev.title}</strong>
-                            <small>${ev.date || 'Sem data'} · ${ev.description.substring(0, 60)}${ev.description.length > 60 ? '…' : ''}</small>
-                        </div>
-                        <div class="actions">
-                            <button class="btn btn-danger btn-sm" onclick="deleteEvent('${ev.id}')">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                `).join('');
-        }
-
-        // ============================================================
-        // 13. ADMIN: MUDAR SENHA (via Supabase Auth)
-        // ============================================================
-        async function changePassword(e) {
-            e.preventDefault();
-            if (!currentUser) { toast('Faça login primeiro.', 'error'); return; }
-
-            const newPass = document.getElementById('newPassword').value;
-            const confirmPass = document.getElementById('confirmPassword').value;
-            if (newPass.length < 6) { toast('Mínimo 6 caracteres.', 'error'); return; }
-            if (newPass !== confirmPass) { toast('Senhas não conferem.', 'error'); return; }
-
-            const { error } = await supabase.auth.updateUser({ password: newPass });
-            if (error) {
-                toast('Erro ao alterar senha: ' + error.message, 'error');
-            } else {
-                toast('Senha alterada com sucesso!');
-                document.getElementById('formSenha').reset();
-            }
-        }
-
-        // ============================================================
-        // 14. ADMIN LOGIN / TOGGLE
-        // ============================================================
-        let isAdminOpen = false;
-
-        function toggleAdmin() {
-            if (isAdminOpen) {
-                closeAdmin();
-            } else {
-                openAdmin();
-            }
-        }
-
-        function openAdmin() {
-            // Verifica se já está autenticado
-            if (currentUser) {
-                showAdminPanel();
-                return;
-            }
-            // Se não, mostra login
-            document.getElementById('adminLogin').classList.add('open');
-            document.getElementById('loginError').classList.remove('show');
-            document.getElementById('loginEmail').value = '';
-            document.getElementById('loginPassword').value = '';
-            document.getElementById('loginEmail').focus();
-        }
-
-        function closeAdmin() {
-            document.getElementById('adminPanel').classList.remove('open');
-            document.getElementById('adminToggle').classList.remove('active');
-            isAdminOpen = false;
-        }
-
-        function showAdminPanel() {
-            document.getElementById('adminLogin').classList.remove('open');
-            document.getElementById('adminPanel').classList.add('open');
-            document.getElementById('adminToggle').classList.add('active');
-            isAdminOpen = true;
-            loadAdminForms();
-        }
-
-        // Fechar admin ao clicar no backdrop
-        document.getElementById('adminPanel').addEventListener('click', function(e) {
-            if (e.target === this) closeAdmin();
-        });
-
-        // Abas do admin
-        document.querySelectorAll('#adminTabsNav button').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('#adminTabsNav button').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                const target = this.dataset.tab;
-                document.querySelectorAll('.admin-tab-pane').forEach(p => p.classList.remove('active'));
-                document.getElementById(target).classList.add('active');
-            });
-        });
-
-        // Abas do cliente (Sobre)
-        document.querySelectorAll('#aboutTabs .tab-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('#aboutTabs .tab-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                const target = this.dataset.tab;
-                document.querySelectorAll('#aboutContent .tab-content').forEach(c => c.classList.remove('active'));
-                document.getElementById(target).classList.add('active');
-            });
-        });
-
-        // Preview da logo
-        document.getElementById('logoInput').addEventListener('change', function(e) {
-            const file = this.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(ev) {
-                    const preview = document.getElementById('logoPreview');
-                    preview.src = ev.target.result;
-                    preview.style.display = 'block';
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        // ============================================================
-        // 15. INIT
-        // ============================================================
-        async function init() {
-            await checkAuth();
-            await renderClient();
-            startAutoPlay();
-
-            // Se já estiver autenticado, carrega admin forms
-            if (currentUser) {
-                await loadAdminForms();
-            }
-
-            // Fechar admin com ESC
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && isAdminOpen) closeAdmin();
-            });
-        }
-
-        init();
+        })();
     </script>
 
 </body>
